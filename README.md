@@ -1,5 +1,3 @@
-r1-connect-demo-Android
-=======================
 #Table of Content
 - [1. System Requirements](#user-content-1-system-requirements)
 - [2. SDK Initialization](#user-content-2-sdk-initialization)
@@ -23,7 +21,9 @@ r1-connect-demo-Android
 		
 
 #1. System Requirements
-The R1 Connect SDK supports all mobile and tablet devices running iOS 5.0 with Xcode 4.5 and above. The downloadable directory (see below "[a. Import Files](#a-import-files)") contains the library and headers of the R1 Connect SDK for iOS. 
+The R1 Connect SDK supports all mobile and tablet devices running Android 2.2 and above. The downloadable directory (see below "[a. Import Files](#a-import-files)") contains the library and headers of the R1 Connect SDK for Android. 
+
+\\ Update the download link above.
 
 The library supports the following architectures:
 
@@ -33,14 +33,37 @@ The library supports the following architectures:
 *	i386
 *	x86_64
 
-It supports iOS 5 and up.
+\\ Please verify the supporting architectures above.
 
 #2. SDK Initialization
 
 ## a. Import Files
 1.	Download the r1connect lib files:
            git clone git@github.com:radiumone/r1-connect-demo-iOS.git
-2.	Open up your iOS project in xCode.
+
+\\ Update the download link above.
+
+2.	Add r1connect lib files to the "libs" folder in your project.
+
+\\ Insert a screenshot URL: https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image1.png
+
+3.	Create a file called "r1connect.properties" under the "asset" folder.
+
+\\ Insert a screenshot URL: https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image2.png
+
+4.	Configure the following attributes:
+
+sender_id – You will need to enter the project number you received when creating the Google API project
+app_id – You will need to enter the App ID you received when creating your app on R1 Connect (it’s found under Dev Tools -> Keys & Secrets)
+client_key – You will need to enter the App Key you received when creating your app on R1 Connect (it ‘s found under Dev Tools -> Keys & Secrets)
+enable_push – this defaults to “true” and it will enable push notifications or disable push notifications after you start your application. You change these settings later in your code.
+disable_sdk_location - when set to “true” it disables the use of sdk tracking location. It is useful if you want to use your own tracking location. You can pass a location object like so: R1Emitter.getInstance().trackLocation(location);
+enable_ gps – when set to “true” it enables the use of device GPS to get location (only if GPS is enabled in device settings), when “false” only the network is used
+location_update_time – this is the timeout between location updates
+location_update_distance – you can set the change in distance for location updates
+location_in_background – you can set whether or not the location is allowed to be sent while the app is in the background
+
+
 3.	Select File -> Add Files to “[YOUR XCODE PROJECT]” project
 4.	Select all files in "Lib" Folder from the repo you just cloned
 5.	When the dialog box appears, check the Copy Items into destination group’s folder checkbox.
