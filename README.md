@@ -1,3 +1,5 @@
+
+
 #Table of Content
 - [1. System Requirements](#user-content-1-system-requirements)
 - [2. SDK Initialization](#user-content-2-sdk-initialization)
@@ -19,194 +21,102 @@
 		- [i. Track RadiumOne Campaigns](#user-content-i-track-radiumone-campaigns)
 		- [ii. Track 3rd party Campaigns](#user-content-ii-track-3rd-party-campaigns)
 		
+// Update TOC and links above AFTER review completion
+
 
 #1. System Requirements
 The R1 Connect SDK supports all mobile and tablet devices running Android 2.2 and above. The downloadable directory (see below "[a. Import Files](#a-import-files)") contains the library and headers of the R1 Connect SDK for Android. 
 
-\\ Update the download link above.
+// Update the download link above.
 
 The library supports the following architectures:
 
-*       arm7
+*     	arm7
 *	arm7s
 *	arm64
 *	i386
 *	x86_64
 
-\\ Please verify the supporting architectures above.
+// Please verify the supporting architectures above.
 
 #2. SDK Initialization
-
 ## a. Import Files
-1.	Download the r1connect lib files:
-           git clone git@github.com:radiumone/r1-connect-demo-iOS.git
+Download the r1connect lib files:
+           git clone git@github.com:radiumone/r1-connect-demo-Android.git
 
-\\ Update the download link above.
+// Update the download link above.
 
-2.	Add r1connect lib files to the "libs" folder in your project.
+## b. Setup libraries and properties
+1.	Add r1connect lib files to the "libs" folder in your project.
 
-\\ Insert a screenshot URL: https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image1.png
+<img src="https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image1.png” width="440" />
 
-3.	Create a file called "r1connect.properties" under the "asset" folder.
+2.	Create a file called "r1connect.properties" under the "asset" folder.
 
-\\ Insert a screenshot URL: https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image2.png
+<img src="https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image2.png” width="440" />
 
-4.	Configure the following attributes:
-
-sender_id – You will need to enter the project number you received when creating the Google API project
-app_id – You will need to enter the App ID you received when creating your app on R1 Connect (it’s found under Dev Tools -> Keys & Secrets)
-client_key – You will need to enter the App Key you received when creating your app on R1 Connect (it ‘s found under Dev Tools -> Keys & Secrets)
-enable_push – this defaults to “true” and it will enable push notifications or disable push notifications after you start your application. You change these settings later in your code.
-disable_sdk_location - when set to “true” it disables the use of sdk tracking location. It is useful if you want to use your own tracking location. You can pass a location object like so: R1Emitter.getInstance().trackLocation(location);
-enable_ gps – when set to “true” it enables the use of device GPS to get location (only if GPS is enabled in device settings), when “false” only the network is used
-location_update_time – this is the timeout between location updates
-location_update_distance – you can set the change in distance for location updates
-location_in_background – you can set whether or not the location is allowed to be sent while the app is in the background
-
-
-3.	Select File -> Add Files to “[YOUR XCODE PROJECT]” project
-4.	Select all files in "Lib" Folder from the repo you just cloned
-5.	When the dialog box appears, check the Copy Items into destination group’s folder checkbox.
- 
-
-
-<img src="https://raw.github.com/radiumone/r1-connect-demo-iOS/readme_images/ReadmeImages/library_files.png"  width="440" />
-
-## b. Link the Static Library
-Go to "Build Phases" and make sure LibR1Connect.a file is set in the “Link Binary With Libraries” section. If it’s absent, please add it.
-
-Make sure you also add:
-
-+	AdSupport.framework
-+	CoreTelephony.framework
-+	SystemConfiguration.framework
-+	libsqlite3.dylib
-+	CoreLocation.framework
-
-
- <img src="https://raw.github.com/radiumone/r1-connect-demo-iOS/readme_images/ReadmeImages/link_with_binary.png"  width="440" />
-
- 
-Check Background modes switch is turned on in Capabilities tab for your target. If it’s turned off, please turn on.
- 
 ## c. Initialize the SDK
-You will need to initialize the R1 Connect Library in your App Delegate.
-####Import the required header files
-At the top of your application delegate include any required headers:
+You will need to initialize the R1 Connect properties.
 
+***sender_id***
 
-```objc
-#import "R1SDK.h"
-#import "R1Emitter.h"
-```
+You will need to enter the project number you received when creating the Google API project
 
+***app_id***
 
-####Initialize R1Connect Instance
+You will need to enter the App ID you received when creating your app on R1 Connect (it’s found under Dev Tools -> Keys & Secrets)
 
+***client_key***
 
-```objc
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:
-(NSDictionary *)launchOptions {     
-    R1SDK *sdk = [R1SDK sharedInstance];  
-    
-    // Initialize Anlaytics      
-    sdk.applicationId = @"[YOUR APPLICATION ID]";  //Ask your RadiumOne contact for an app id
-    
-    // Start SDK     
-   [sdk start];      
-    return YES; 
-}
-```
+You will need to enter the App Key you received when creating your app on R1 Connect (it ‘s found under Dev Tools -> Keys & Secrets)
 
-## d. Advanced Settings
+// Are the three parameters above mandatory?
+// Insert sample initialization code here
+
+## d. Configure advanced settings
 The following is a list of configuration parameters for the R1 Connect SDK, most of these contain values that are sent to the tracking server to help identify your app on our platform and to provide analytics on sessions and location.
 
-####Configuration Parameters
+***enable_push***
 
-***applicationUserId***
+this defaults to “true” and it will enable push notifications or disable push notifications after you start your application. You change these settings later in your code.
 
-Optional current user identifier.
-```objc
-[R1SDK sharedInstance].applicationUserId = @"12345";
-```
+// Insert sample code here
 
-***location***
+***disable_sdk_location***
 
-The current user location coordinates. Use it only if your application already uses location services.
+when set to “true” it disables the use of sdk tracking location. It is useful if you want to use your own tracking location. You can pass a location object like so: R1Emitter.getInstance().trackLocation(location);
 
-```objc
-[R1SDK sharedInstance].location = [locations lastObject];
-```
+// Insert sample code here
 
-***locationService***
+***enable_ gps***
 
-If your application did not use location information before this SDK installation, you can use locationService in this SDK to enable or disable it:
+when set to “true” it enables the use of device GPS to get location (only if GPS is enabled in device settings), when “false” only the network is used
 
-```objc
-[R1SDK sharedInstance].locationService.enabled = YES;
-```
+// Insert sample code here
 
-When enabled, such as in the example above, location information will be sent automatically. However, locationService doesn’t fetch the location constantly. For instance, when the location is received the SDK will turn off the location in CLLocationManager and wait 10 minutes (by default) before attempting to retrieve it again. You can change this value:
-```objc
-[R1SDK sharedInstance].locationService.autoupdateTimeout = 1200; // 20 minutes
-```
+***location_update_time***
 
-***appName***
+this is the timeout between location updates
 
-The application name associated with emitter. By default, this property is populated with the `CFBundleName` string from the application bundle. If you wish to override this property, you must do so before making any tracking calls.
-		
-```objc
-[R1Emitter sharedInstance].appName = @"Custom application name";
-```
+// Insert sample code here
 
-***appId***
+***location_update_distance***
 
-Default: nil
+you can set the change in distance for location updates
 
-The application identifier associated with this emitter.  If you wish to set this property, you must do so before making any tracking calls. Note: that this is not your app's bundle id, like e.g. com.example.appname.
+// Insert sample code here
 
-```objc
-[R1Emitter sharedInstance].appId = @"12345678";
-```
+***location_in_background***
 
-***appVersion***
+you can set whether or not the location is allowed to be sent while the app is in the background
 
-The application version associated with this emitter. By default, this property is populated with the `CFBundleShortVersionString` string from the application bundle. If you wish to override this property, you must do so before making any tracking calls.
+// Insert sample code here
 
-```objc
-[R1Emitter sharedInstance].appVersion = @"1.0.2";
-```
 
-***sessionStart***
-
-If true, indicates the start of a new session. Note that when a emitter is first instantiated, this is initialized to true. To prevent this default
- behavior, set this to `NO` when the tracker is first obtained.
- 
- By itself, setting this does not send any data. If this is true, when the next emitter call is made, a parameter will be added to the resulting emitter
- information indicating that it is the start of a session, and this flag will be cleared.
-
-```objc
-[R1Emitter sharedInstance].sessionStart = YES;
-// Your code here
-[R1Emitter sharedInstance].sessionStart = NO;
-```
-
-***sessionTimeout***
-
-If non-negative, indicates how long, in seconds, the application must transition to the inactive or background state for before the tracker will automatically indicate the start of a new session when the app becomes active again by setting sessionStart to true. For example, if this is set to 30 seconds, and the user receives a phone call that lasts for 45 seconds while using the app, upon returning to the app, the sessionStart parameter will be set to true. If the phone call instead lasted 10 seconds, sessionStart will not be modified.
- 
-To disable automatic session tracking, set this to a negative value. To indicate the start of a session anytime the app becomes inactive or backgrounded, set this to zero.
- 
-By default, this is 30 seconds.
-
-```objc
-[R1Emitter sharedInstance].sessionTimeout = 15;
-```
 
 #3. Feature Activation
 ##a. Analytics Activation
 ### i. Automatic Events
-
 
 The R1 Connect SDK will automatically capture some generic events, but in order to get the most meaningful data on how users interact with your app the SDK. These events are triggered when the state of the application is changed and, therefore, they do not require any additional code to be written in the app in order to work out of the box:
 
@@ -218,7 +128,11 @@ The R1 Connect SDK will automatically capture some generic events, but in order 
 
 **Suspend** - emitted when the app is put into the background state
 
+// Is Suspend event available on Android?
+
 **Resume** - emitted when the app returns from the background state
+
+// Is Resume event available on Android?
 
 **Application Opened** - This event is very useful for push notifications and can measure when your app is opened after a message is sent.
 
@@ -238,9 +152,7 @@ Standard Events give you an easy way to cover all the main user flows (login, re
 Tracks a user login within the app
 
 ```objc
-[[R1Emitter sharedInstance] emitLoginWithUserID:@"userId"
-                           	       userName:@"user_name"
-                         	      otherInfo:@{"custom_key":"value"}];
+R1Emitter.getInstance().emitLogin( sha1("userId"), "userName", parameters);
 ```
 
 **Registration**
@@ -248,12 +160,16 @@ Tracks a user login within the app
 Records a user registration within the app
 
 ```objc
-[[R1Emitter sharedInstance] emitRegistrationWithUserID:@"userId"
-                                              userName:@"userName"
-                                               country:@"country"
-                                                 state:@"state"
-                                                  city:@"city"
-                                             otherInfo:@{"custom_key":"value"}];
+UserItem userItem = new UserItem();
+userItem.userId = sha1("userId");
+userItem.userName = "userName";
+userItem.email = "user@email.net";
+userItem.streetAddress = "address";
+userItem.phone = "123456";
+userItem.zip = "111111";
+userItem.city = "City";
+userItem.state = "State"
+R1Emitter.getInstance().emitRegistration(userItem, parameters);
 ```
 
 **Facebook connect**
@@ -261,10 +177,14 @@ Records a user registration within the app
 Allows access to Facebook services
 
 ```objc
-NSArray *permissions = @[[R1EmitterSocialPermission socialPermissionWithName:@"photos" granted:YES]];
+R1Emitter.getInstance().emitFBConnect( sha1( "userId" ), "userName", permissions, parameters);
+```
 
-[[R1Emitter sharedInstance] emitFBConnectWithPermissions:permissions
-                                  	       otherInfo:@{"custom_key":"value"}];
+where permissions is a List of R1SocialPermissions:
+
+```objc
+ArrayList<R1SocialPermission> socialPermissions = new ArrayList<R1SocialPermission>();
+socialPermissions.add( new R1SocialPermission("permission", true));
 ```
 
 **Twitter connect**
@@ -272,12 +192,10 @@ NSArray *permissions = @[[R1EmitterSocialPermission socialPermissionWithName:@"p
 Allows access to Twitter services
 
 ```objc
-NSArray *permissions = @[[R1EmitterSocialPermission socialPermissionWithName:@"photos" granted:YES]];
-
-[[R1Emitter sharedInstance] emitTConnectWithUserID:@"12345"
-                                          userName:@"user_name"
-                                       permissions:permissions
-                                  	 otherInfo:@{"custom_key":"value"}];
+HashMap<String, Object> parameters = new HashMap<String, Object>();
+parameters.put("custom_key","value");
+R1Emitter.getInstance().emitTConnect( sha1( "userId" ),
+“username”, permissions, parameters);
 ```
 
 **User Info**
@@ -300,6 +218,8 @@ R1EmitterUserInfo *userInfo = [R1EmitterUserInfo userInfoWithUserID:@"userId"
                                otherInfo:@{"custom_key":"value"}];
 ```
 
+// Update **User Info** sample code above
+
 **Upgrade**
 
 Tracks an application version upgrade
@@ -308,12 +228,14 @@ Tracks an application version upgrade
 [[R1Emitter sharedInstance] emitUpgradeWithOtherInfo:@{"custom_key":"value"}];
 ```
 
+// Update **Upgrade** sample code above
+
 **Trial Upgrade**
 
 Tracks an application upgrade from a trial version to a full version
 
 ```objc
-[[R1Emitter sharedInstance] emitTrialUpgradeWithOtherInfo:@{"custom_key":"value"}];
+R1Emitter.getInstance().emitTrialUpgrade(parameters);
 ```
 
 **Screen View**
@@ -321,92 +243,80 @@ Tracks an application upgrade from a trial version to a full version
 Basically, a page view, it provides info about that screen
 
 ```objc
-[[R1Emitter sharedInstance] emitScreenViewWithDocumentTitle:@"title"
-                            					 contentDescription:@"description"
-                           						documentLocationUrl:@"http://www.example.com/path"
-                              					   documentHostName:@"example.com"
-                                  					   documentPath:@"path"
-                                     					  otherInfo:@{"custom_key":"value"}];
+R1Emitter.getInstance().emitAppScreen("title","description","http://    www.example.com/path”,”example.com”,”path”,parameters);
 ```
 
 **Transaction**
 
 ```objc
-[[R1Emitter sharedInstance] emitTransactionWithID:@"transaction_id"
-                                  	  storeID:@"store_id"
-                                 	storeName:@"store_name"
-                                    	   cartID:@"cart_id"
-                                   	  orderID:@"order_id"
-                                 	totalSale:1.5
-                                  	 currency:@"USD"
-                             	    shippingCosts:10.5
-                            	   transactionTax:12.0
-                                 	otherInfo:@{"custom_key":"value"}];
+EmitItem purchaseItem = new EmitItem();
+purchaseItem.storeId = "storeId";
+purchaseItem.storeName = "name";
+purchaseItem.transactionId = "AE3237DAA"
+purchaseItem.cartId = "ABBCCD"
+purchaseItem.orderId = "ABCDEF";
+purchaseItem.totalSale = 3.2f;
+purchaseItem.currency = "EUR";
+purchaseItem.shippingCosts = 1.8f;
+purchaseItem.transactionTax = 2.5f;
+R1Emitter.getInstance().emitTransaction(emitItem, parameters);
 ```
 
 **TransactionItem**
 
 ```objc
-R1EmitterLineItem *lineItem = [R1EmitterLineItem itemWithID:@"product_id"
-                              			       name:@"product_name"
-                          			   quantity:5
-                     			      unitOfMeasure:@"unit"
-                          			   msrPrice:10
-                         			  pricePaid:10
-                          			   currency:@"USD"
-                      			       itemCategory:@"category"];
-
-[[R1Emitter sharedInstance] emitTransactionItemWithTransactionID:@"transaction_id"
-                                                 	lineItem:lineItem
-                                                       otherInfo:@{"custom_key":"value"}];
+R1EmitterLineItem lineItem = new R1EmitterLineItem();
+lineItem.productId = "productId";
+lineItem.productName = "productName";
+lineItem.quantity = 5;
+lineItem.unitOfMeasure = "parts";
+lineItem.msrPrice = 1.3f;
+lineItem.pricePaid = 3.4f;
+lineItem.currency = "EUR;
+lineItem.itemCategory = "items";
+R1Emitter.getInstance().emitTransactionItem("transactionItemId", lineItem,  parameters);
 ```
 
 **Create Cart**
 
 ```objc
-[[R1Emitter sharedInstance] emitCartCreateWithCartID:@"cart_id"
-                                	   otherInfo:@{"custom_key":"value"}];
+R1Emitter.getInstance().emitCartCreate("cartId", parameters);
 ```
 
 **Delete Cart**
 
 ```objc
-[[R1Emitter sharedInstance] emitCartDeleteWithCartID:@"cart_id"
-                       			   otherInfo:@{"custom_key":"value"}];
+R1Emitter.getInstance().emitCartDelete("cartId", parameters);
 ```
 
 **Add To Cart**
 
 ```objc
-R1EmitterLineItem *lineItem = [R1EmitterLineItem itemWithID:@"product_id"
-                              			       name:@"product_name"
-                          			   quantity:5
-                     			      unitOfMeasure:@"unit"
-                          			   msrPrice:10
-                         			  pricePaid:10
-                          			   currency:@"USD"
-                      			       itemCategory:@"category"];
-
-[[R1Emitter sharedInstance] emitAddToCartWithCartID:@"cart_id"
-        				   lineItem:lineItem
-                                 	  otherInfo:@{"custom_key":"value"}];
+R1EmitterLineItem lineItem = new R1EmitterLineItem();
+lineItem.productId = "productId";
+lineItem.productName = "productName";
+lineItem.quantity = 5;
+lineItem.unitOfMeasure = "parts";
+lineItem.msrPrice = 1.3f;
+lineItem.pricePaid = 3.4f;
+lineItem.currency = "EUR;
+lineItem.itemCategory = "items";
+R1Emitter.getInstance().emitAddToCart("cartId", lineItem, parameters);
 ```
 
 **Delete From Cart**
 
 ```objc
-R1EmitterLineItem *lineItem = [R1EmitterLineItem itemWithID:@"product_id"
-                              			       name:@"product_name"
-                          			   quantity:5
-                     			      unitOfMeasure:@"unit"
-                          			   msrPrice:10
-                         			  pricePaid:10
-                          			   currency:@"USD"
-                      			       itemCategory:@"category"];
-
-[[R1Emitter sharedInstance] emitDeleteFromCartWithCartID:@"cart_id"
-        					lineItem:lineItem
-                                 	       otherInfo:@{"custom_key":"value"}];
+R1EmitterLineItem lineItem = new R1EmitterLineItem();
+lineItem.productId = "productId";
+lineItem.productName = "productName";
+lineItem.quantity = 5;
+lineItem.unitOfMeasure = "parts";
+lineItem.msrPrice = 1.3f;
+lineItem.pricePaid = 3.4f;
+lineItem.currency = "EUR;
+lineItem.itemCategory = "items";
+R1Emitter.getInstance().emitRemoveFromCart("cartId", lineItem, parameters);
 ```
 
 
@@ -420,12 +330,79 @@ To include tracking of custom events for the mobile app, the following callbacks
 
 ```objc
 // Emits a custom event without parameters
-[[R1Emitter sharedInstance] emitEvent:@"Your custom event name"];
-
+R1Emitter.getInstance().emitEvent("Your custom event name");
 // Emits a custom event with parameters
-[[R1Emitter sharedInstance] emitEvent:@"Your custom event name"
-			  			   withParameters:@{"key":"value"}];
+private HashMap<String, Object> parameters = new HashMap<String, Object>();
+parameters.put("key","value");
+R1Emitter.getInstance().emitEvent("Your custom event name", parameters);
 ```
+
+### iv. Parameters
+The following is a list of configuration parameters for the R1 Connect SDK, most of these contain values that are sent to the tracking server to help identify your app on our platform and to provide analytics on sessions and location.
+
+**appName**
+
+The application name associated with emitter. By default, this property is populated with the package name of the application. If you wish to override this property, you must do so before making any tracking calls.
+
+```objc
+R1Emitter.getInstance().setApplicationName("customApplicationName");
+```
+
+**appId**
+
+The application identifier associated with this emitter. By default, this property is null. If you wish to set this property, you must do so before making any tracking calls. Note that this is not your app's bundle id (e.g. com.example.appname).
+
+```objc
+R1Emitter.getInstance().setApplicationUserId("12345");
+```
+
+**appVersion**
+
+The application version associated with this emitter. By default, this property is populated with the android:versionName= string from the application AndroidManifest.xml. If you wish to override this property, you must do so before making any tracking calls.
+
+```objc
+R1Emitter.getInstance().setAppVersion("1.0");
+```
+
+**appScreen**
+
+The current application screen set for this emitter.
+
+```objc
+R1Emitter.getInstance().emitAppScreen("appScreen", "contentDescription", "documentLocationUrl", "documentHostName", "documentPath", parameters);
+// where parameters is a HashMap. Example:
+private HashMap<String, Object> parameters = new HashMap<String, Object>();
+parameters.put("key","value");
+```
+
+**sessionStart**
+
+// Are we making sessionStart not user-configurable?  If so, we should remove this module.
+
+If true, indicates the start of a new session. Note that when a emitter is first instantiated, this is initialized to true. To prevent this default behavior, set sessionTimeout to negative value. By itself, setting this does not send any data. If this is true, when the next emitter call is made, a parameter will be added to the resulting emitter information indicating that it is the start of a session, and this flag will be cleared.
+
+```objc
+R1Emitter.getInstance().setSessionStarted(true);
+// Your code here
+R1Emitter.getInstance().setSessionStarted(false);
+```
+
+**sessionTimeout**
+
+Indicates how long, in seconds, the application must transition to the inactive or background state before the tracker automatically indicates the start of a new session. When this happens and the app becomes active again it will set sessionStart to true. For example, if this is set to 30 seconds, and the user receives a phone call that lasts for 45 seconds while using the app, upon returning to the app, the sessionStart parameter will be set to true. If the phone call instead lasted 10 seconds, sessionStart will not be modified. By default, this is 30 seconds.
+
+```objc
+R1Emitter.getInstance().setSessionTimeout(30);
+```
+
+**applicationUserID**
+
+Optional current user identifier.
+
+```objc
+R1Emitter.getInstance().setApplicationUserId("12345");
+```
+
 
 
 ###iv. Best Practices
@@ -446,6 +423,8 @@ Another common mistake is to add parameters to the event that have too many poss
 [[R1Emitter sharedInstance] emitEvent:@"ProfileViewing"
 			withParameters:@{"profileFollowers":profileFollowers}];
 ```
+
+// Update the sample code above
 			  			   
 Again, the problem here is that each profile may have any number of followers. This will result in having your data much too fragmented to extract any valuable information.
 
@@ -462,6 +441,7 @@ Then a proper event would be
 			withParameters:@{"profileFollowersBucket":@"VERY_INFLUENTIAL"}];
 ```
 
+// Update the sample code above
 			  			   
 This will enable you to create much more insightful reports.
 
@@ -469,117 +449,137 @@ This will enable you to create much more insightful reports.
 
 ###i. Initialization
 
+To make sure push notifications work correctly, please follow these steps:
 
-####Setup your App Delegate
+Create a class that inherits from the class Application (or you can use an existing one in the project)
 
+To enable an action such as opening the app when a notification is clicked, create a class that inherits from BroadcastReceiver and add the necessary logic to it. If you are okay with the default, which closes the notification upon pressing it, then no further coding is required.
+
+// Insert sample code from the screenshot: https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image3.png
+
+The class referred to in the first item is used in the following way:
 
 ```objc
-#import "R1SDK.h"
-#import "R1Emitter.h"
-#import "R1Push.h"
+R1Emitter.getInstance().setNotificationIconResourceId(this, R.drawable.ic_launcher);
+//The above line is necessary for creating an icon in the notification bar when the device receives the notification
+R1Emitter.getInstance().setIntentReceiver(this, TestPushReceiver.class);
+//This line tells the library that the class created in step 2 will be processing the push notification
+//In TestPushReceiver (see step 2) we want to open ShowNotificationActivity when notification is clicked
+R1Emitter.getInstance().connect(this); //To make sure the library works correctly it is necessary this line in onCreate() method
+```
+
+// Insert sample code from the screenshot: 
+https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image4.png
+
+If you want to create your own notifications you have to create a class that implements R1NotificationBuilder interface and write your notification builder like in the example below:
+
+// Insert sample code from the screenshot: 
+https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image7.png
+
+After that add this line just before R1Emitter.getInstance().connect(this) in your application class:
+```objc
+R1Emitter.getInstance().setNotificationBuilder( new CustomNotificationBuilder());
+```
+
+To make sure the library works correctly it is also necessary to include the following in onStart and onStop methods in all your application Activities:
+
+// Insert sample code from the screenshot: 
+https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image5.png
+
+// Insert sample code from the screenshot: 
+https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image6.png
+
+In the manifest you need to create the following:
+
+```objc
+<!-- android:name of application tag must be full application name that was created in first step.-->
+<application
+    android:name="com.example.r1connecttestapplication.TestApplication"
+    android:allowBackup="true"
+    android:icon="@drawable/ic_launcher"
+    android:label="@string/app_name"
+    android:theme="@style/AppTheme" >
+    <!—the next lines are your project activities-->
+    //Then there are necessary fields for the library to work correctly (cont…):
+    <receiver android:name="com.radiumone.emitter.gcm.R1GCMPushReceiver" android:exported="true"
+              android:permission="com.google.android.c2dm.permission.SEND" >
+        <intent-filter>
+            <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            <!-- name must be your applicationPackage -->
+            <category android:name="com.radiumone.sdk" />
+        </intent-filter>
+    </receiver>
+    <receiver android:name="com.radiumone.emitter.push.R1PushBroadcastReceiver"
+              android:exported="false">
+        <intent-filter>
+            <action android:name="com.radiumone.r1push.OPENED_INTERNAL"/>
+        </intent-filter>
+    </receiver>
+    <service android:name="com.radiumone.emitter.push.R1ConnectService"/>
+    <service android:name="com.radiumone.emitter.location.LocationService"/>
+    //Using the class created in Step 2 (cont…):
+    <receiver android:name=".testpush.TestPushReceiver"
+              android:exported="false">
+        <intent-filter>
+            <action android:name="com.radiumone.r1push.OPENED"/>
+        </intent-filter>
+    </receiver>
+</application>
+//Permissions that are necessary for the library to work:
+<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+//Permission to get location when using the network
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+//Permission to get location when using GPS
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+<uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
+<uses-permission android:name="android.permission.GET_ACCOUNTS" />
+<uses-permission android:name="android.permission.VIBRATE"/>
+<!—(your_application_package).permission.C2D_MESSAGE -->
+<permission android:name="com.radiumone.sdk.permission.C2D_MESSAGE" android:protectionLevel="signature"/>
+<uses-permission android:name="com.radiumone.sdk.permission.C2D_MESSAGE"></uses-permission>
 ```
 
 
-```objc
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-    R1SDK *sdk = [R1SDK sharedInstance];
-    
-    // Initialize SDK
-    sdk.applicationId = @"[Application ID]";  //Ask your RadiumOne contact for an app id
-    
-    // Initialize Push Notification
-    sdk.clientKey = @"[Your Client Key]";  //Ask your RadiumOne contact for a client key
-    [[R1Push sharedInstance] handleNotification:[launchOptions valueForKey:UIApplicationLaunchOptionsRemoteNotificationKey]
-                                 applicationState: application.applicationState];
-    [[R1Push sharedInstance] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
-                                                                 UIRemoteNotificationTypeSound |
-                                                                 UIRemoteNotificationTypeAlert)];
-    
-    // Start SDK
-    [sdk start];
-    return YES;
-}
-```
+###ii. Setup Google Cloud Messaging
+
+####Prerequisites for Google Cloud Messaging  Setup
+This doc assumes you have already set up Google Play Services in your application project. Google Play Services is needed to use Google Cloud Messaging (GCM), the notification gateway RadiumOne Connect will use for your Android app. Also if you have not done so already, you will need to add the app you will be using to the RadiumOne Connect portal in order to add the Google API Key to it once you have generated the API Key following the steps below.
+
+####Configuring your App for GCM
+######Obtain an API key from Google
+In order to use RadiumOne Connect with your application you will need an API key from Google. We will summarize those steps here, but for more info on this process please visit “GCM Getting Started” here.
+1.	Create a Google API project in Google APIs Console (take note of your project number which is the value after #project: it will be used later as your GCM sender ID)
+
+// Insert a screenshot image
+
+2.	Enable the GCM Service
+
+// Insert a screenshot image
+
+3.	Create a new Server key in the Google APIs Console page under API Access
+
+// Insert two screenshot images
+
+4.	Copy the key, it is used for GCM Connection Servers and for RadiumOne Connect setup
+
+######Setting up the API Key on R1 Connect
+
+1.	Please make sure you are signed into your account on RadiumOne Connect and go to the application you want to add this API key to.
+
+2.	Next, in the side menu go to Dev Tools > Push Services > Google Cloud Messaging.
+
+// Insert a screenshot image
+
+3.	Add your API Key to the API Key field and click Save.
+
+// Insert a screenshot image
+
+If it saved correctly you will see a green badge with a white checkmark in it. Now your app is setup with GCM.
 
 
-####Register for Remote Notifications
-
-
-
-```objc
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
-{
-    [[R1Push sharedInstance] registerDeviceToken:deviceToken];
-}
-- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
-{
-    [[R1Push sharedInstance] failToRegisterDeviceTokenWithError:error];
-}
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
-{
-    [[R1Push sharedInstance] handleNotification:userInfo applicationState:application.applicationState];
-}
-```
- 
-Push is disabled by default. You can enable it in the *application:didFinishLaunchingWithOptions* method or later.
-
-```objc
-[[R1Push sharedInstance] setPushEnabled:YES];
-```
-
-
-NOTE: If you enabled it in the *application:didFinishLaunchingWithOptions* method, the Push Notification AlertView will be showed at first application start.
-
-
-###ii. Setup Apple Push Notification Services
-
-####Prerequisites for Apple Push Notification Services Setup
-######The Importance of Setting your App as in “Production” or in “Development”
-When creating or editing an app on RadiumOne Connect you can set the status of the app to either “Production” or “Development”. “Production” status for an app is considered to be a live app that is in the hands of real users and will have notifications and other data running on live servers. A “Development” status for an app is one that you are still performing testing on and will not be viewed by any real-life audiences because it will stay on test servers.
-
-In the context of push notifications, it is important to know this difference because Apple will treat these two servers separately. Also device tokens for “Development” will not work on “Production” and vice versa. We recommend a Development app version and Production app version for your app on RadiumOne Connect to keep Push SSL certificates separate for each. You can also continue testing and experimenting on one app without worrying about it affecting your live app audience in any way.
-######iOS Developer Program Enrollment
-This doc assumes that you are enrolled in the iOS Developer Program. If you are not, please enroll [here](https://developer.apple.com/programs/ios/). Being in the Apple Developer Program is a required component to have your iOS app communicate with the RadiumOne Connect service for push notifications and is necessary for the next step of setting up your app with the Apple Push Notification Service (APNs). It is also essential that you have “Team Agent” role access in the iOS Developer Program to complete this process.
-
-####Configuring your App for Apple Push Notifications
-######Apple Developer Members Center
-Make sure you are logged into the [Apple Developer Members Center](https://daw.apple.com/cgi-bin/WebObjects/DSAuthWeb.woa/wa/login?&appIdKey=891bd3417a7776362562d2197f89480a8547b108fd934911bcbea0110d07f757&path=%2F%2Fmembercenter%2Findex.action). Once you are logged in you can locate your application in the “Identifiers” folder list.
-
-![Files in xCode project](http://mcpdemo.herokuapp.com/static/img/help/ios_integration/image001.jpg)
-
-######Registered App ID
-If you have not registered an App ID yet it is important that you do so now. You will need to click the “+” symbol, fill out the form, and check the “Push Notifications” checkbox. Please keep in mind it is possible to edit these choices after the App ID is registered.
-
-
-![Files in xCode project](http://mcpdemo.herokuapp.com/static/img/help/ios_integration/image002.jpg)
-![Files in xCode project](http://mcpdemo.herokuapp.com/static/img/help/ios_integration/image003.jpg)
-
-You can expand the application and when doing so you will see two settings for push notifications. They will have either yellow or green status icons like here:
-
-![Files in xCode project](http://mcpdemo.herokuapp.com/static/img/help/ios_integration/image004.jpg)
-
-You will need to click Edit to continue. If the Edit button is not visible it is because you do not have “Team Agent” role access. This role is necessary for getting an SSL certificate.
-
-######Creating an SSL Certificate
-To enable the Development or Production Push SSL Certificate please click Edit. (It is important to note that each certificate is limited to a single app, identified by its bundle ID and limited to one of two environments, either Development or Production. Read more info [here](https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Chapters/ProvisioningDevelopment.html#//apple_ref/doc/uid/TP40008194-CH104-SW1).)
-
-![Files in xCode project](http://mcpdemo.herokuapp.com/static/img/help/ios_integration/image005.jpg)
-
-
-You will see a Create Certificate button, after clicking it you will see the “Add iOS Certificate Assistant”. Please follow the instructions presented in the assistant which includes launching the “Keychain Access” application, generating a “Certificate Signing Request (CSR)”, generating an SSL Certificate, etc.
-
-If you follow the assistant correctly, after downloading and opening the SSL Certificate you should have it added under “My Certificates” or “Certificates” in your “Keychain Access” application. Also when you are returned to the Configure App ID page the certificate should be badged with a green circle and the label “Enabled”.
-
-![Files in xCode project](http://mcpdemo.herokuapp.com/static/img/help/ios_integration/image006.jpg)
-
-######Exporting the SSL Certificate
-If not already in the “Keychain Access” app that contains your certificate, please open it and select the certificate that you just added. Once you select the certificate go to File > Export Items and export it as a Personal Information Exchange (.p12) file. When saving the file be sure to use the Personal Information Exchange (.p12) format.
-
-![Files in xCode project](http://mcpdemo.herokuapp.com/static/img/help/ios_integration/image007.jpg)
-    
-######Emailing your SSL certificate
-After downloading your 2 certificates (one for production, one for development), please send them to your RadiumOne account manager (with certificate passwords if you chose to add any).
 
 
 ###iii. Segment your Audience    
@@ -593,7 +593,7 @@ The maximum length of a Tag is 128 characters.
 ***Add a new Tag***
 
 ```objc
-[[R1Push sharedInstance].tags addTag:@"NEW TAG"];
+R1Push.getInstance(context).addTag("tag");
 ```
 
 ***Add multiple Tags***
@@ -602,10 +602,12 @@ The maximum length of a Tag is 128 characters.
 [[R1Push sharedInstance].tags addTags:@[ @"NEW TAG 1", @"NEW TAG 2" ]];
 ```
 
+// Replace the code above for Add multiple tags
+
 ***Remove existing Tag***
 
 ```objc
-[[R1Push sharedInstance].tags removeTag:@"EXIST TAG"];
+R1Push.getInstance(context).removeTag("tag");
 ```
 
 ***Remove multiple Tags***
@@ -613,6 +615,8 @@ The maximum length of a Tag is 128 characters.
 ```objc
 [[R1Push sharedInstance].tags removeTags:@[ @"EXIST TAG 1", @"EXIST TAG 2" ]];
 ```
+
+// Replace the code above for Remove multiple tags
 
 ***Replace all existing Tags***
 
@@ -624,11 +628,15 @@ or
 [[R1Push sharedInstance].tags setTags:@[ @"NEW TAG 1", @"NEW TAG 2" ]];
 ```
 
+// Replace the code above for Replace all existing tags
+
 ***Get all Tags***
 	
 ```objc
-NSArray *currentTags = [R1Push sharedInstance].tags.tags;
+String[] allTags = R1Push.getInstance(context).getTags(context);
 ```
+
+
 
 ##c. Attribution Tracking Activation
 ###i. Track RadiumOne Campaigns
@@ -642,4 +650,5 @@ Once your Account Manager has set up tracking, you will start receiving attribut
 3. For each media supplier, your account manager will send you 2 tracking URLs (one impression tracking URL, 1 click tracking URL).
 4. Send each pair of URLs to the relevant Media Supplier so they can set these tracking URLs on the creatives
 5. You're all set and will start having access to Attribution Tracking Reports
+
 
