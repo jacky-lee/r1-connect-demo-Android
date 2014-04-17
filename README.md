@@ -57,23 +57,26 @@ The following steps will explain how to integrate with R1 Connect to enable even
 
 After copying the lib files, import the emitter in all your application activities:
 
-	import com.radiumone.emitter.R1Emitter;
+```objc
+import com.radiumone.emitter.R1Emitter;
+```
 
 And override onStart and onStop methods:
 
+```objc
 @Override
 protected void onStart() {
 // TODO Auto-generated method stub super.onStart(); R1Emitter.getInstance().onStart(this);
 }
-
 ￼
 @Override
 protected void onStop() {
 // TODO Auto-generated method stub super.onStop(); R1Emitter.getInstance().onStop(this);
 }
-
+```
 Then create a class that extends the Application class (or use an existing one), and initialize the SDK in the onCreate method:
 
+```objc
 package com.example.yourpackagename; 
 import com.radiumone.emitter.R1Emitter; 
 import android.app.Application;
@@ -85,6 +88,7 @@ super.onCreate();
 R1Emitter.getInstance().connect(this); 
 }
 }
+```
 
 ## c. Configure the SDK
 
@@ -92,6 +96,7 @@ Next, to configure how the library will be used in your project you will need to
 
 <img src="https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image2.png” width="440" />
 
+```objc
 app_id=<YOUR APPLICATION_ID> 
 client_key=<YOUR CLIENT KEY>
 
@@ -109,6 +114,7 @@ location_update_distance=100
 
 #allow location tracking in background. Default false
 location_in_background=false
+```
 
 As you can see in the example above, it will contain the following:
 
@@ -125,76 +131,25 @@ n is allowed to be sent while the app is in the background
 ## d. Update your manifest
 Finally, in your manifest, add proper permissions:
 
+```objc
 <uses-permission android:name="android.permission.INTERNET" /> <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+```
 
 And make sure that your Application class is properly declared:
 
+```objc
 <application
 android:name="com.example.yourpackagename.TestApplication" android:allowBackup="true"
 …
 <service android:name="com.radiumone.emitter.location.LocationService"/>
 </application>
+```
 
 
 
 
 
 
-
-
-***sender_id***
-
-You will need to enter the project number you received when creating the Google API project
-
-***app_id***
-
-You will need to enter the App ID you received when creating your app on R1 Connect (it’s found under Dev Tools -> Keys & Secrets)
-
-***client_key***
-
-You will need to enter the App Key you received when creating your app on R1 Connect (it ‘s found under Dev Tools -> Keys & Secrets)
-
-// Are the three parameters above mandatory?
-// Insert sample initialization code here
-
-## d. Configure advanced settings
-The following is a list of configuration parameters for the R1 Connect SDK, most of these contain values that are sent to the tracking server to help identify your app on our platform and to provide analytics on sessions and location.
-
-***enable_push***
-
-this defaults to “true” and it will enable push notifications or disable push notifications after you start your application. You change these settings later in your code.
-
-// Insert sample code here
-
-***disable_sdk_location***
-
-when set to “true” it disables the use of sdk tracking location. It is useful if you want to use your own tracking location. You can pass a location object like so: R1Emitter.getInstance().trackLocation(location);
-
-// Insert sample code here
-
-***enable_ gps***
-
-when set to “true” it enables the use of device GPS to get location (only if GPS is enabled in device settings), when “false” only the network is used
-
-// Insert sample code here
-
-***location_update_time***
-
-this is the timeout between location updates
-
-// Insert sample code here
-
-***location_update_distance***
-
-you can set the change in distance for location updates
-
-// Insert sample code here
-
-***location_in_background***
-
-you can set whether or not the location is allowed to be sent while the app is in the background
-
-// Insert sample code here
 
 
 
