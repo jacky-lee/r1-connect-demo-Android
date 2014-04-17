@@ -37,26 +37,110 @@ The library supports the following architectures:
 *	i386
 *	x86_64
 
-// Please verify the supporting architectures above.
 
 #2. SDK Initialization
-## a. Import Files
-Download the r1connect lib files:
-           git clone git@github.com:radiumone/r1-connect-demo-Android.git
 
-// Update the download link above.
+## a. Import the library to your project
 
-## b. Setup libraries and properties
-1.	Add r1connect lib files to the "libs" folder in your project.
+- Please start by downloading the demo project:
+git clone https://github.com/radiumone/r1-connect-demo-Android
+
+- Then copy SdkLib/LibR1Connect.jar into your project. All mobile and tablet devices running Android 2.2. and above are supported.
+
+You will need to have created the app you will be using in R1 Connect.
+
+
+## b. Initialize the SDK in all Activities and Application Classes
+The following steps will explain how to integrate with R1 Connect to enable event tracking.
 
 <img src="https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image1.png” width="440" />
 
-2.	Create a file called "r1connect.properties" under the "asset" folder.
+After copying the lib files, import the emitter in all your application activities:
+
+	import com.radiumone.emitter.R1Emitter;
+
+And override onStart and onStop methods:
+
+@Override
+protected void onStart() {
+// TODO Auto-generated method stub super.onStart(); R1Emitter.getInstance().onStart(this);
+}
+
+￼
+@Override
+protected void onStop() {
+// TODO Auto-generated method stub super.onStop(); R1Emitter.getInstance().onStop(this);
+}
+
+Then create a class that extends the Application class (or use an existing one), and initialize the SDK in the onCreate method:
+
+package com.example.yourpackagename; 
+import com.radiumone.emitter.R1Emitter; 
+import android.app.Application;
+
+public class TestApplication extends Application{
+@Override
+public void onCreate() {
+super.onCreate();
+R1Emitter.getInstance().connect(this); 
+}
+}
+
+## c. Configure the SDK
+
+Next, to configure how the library will be used in your project you will need to create a file called r1connect.properties in the folder called “assets”.
 
 <img src="https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image2.png” width="440" />
 
-## c. Initialize the SDK
-You will need to initialize the R1 Connect properties.
+app_id=<YOUR APPLICATION_ID> 
+client_key=<YOUR CLIENT KEY>
+
+# default value for push when application starts. Default true
+enable_push=false
+
+#allow location tracking by gps. Default false
+enable_gps=true
+
+#location update timeout. Default 600 sec
+location_update_time=600
+
+#location update distance. Default 100 meters
+location_update_distance=100
+
+#allow location tracking in background. Default false
+location_in_background=false
+
+As you can see in the example above, it will contain the following:
+
+• 	app_id – You will need to enter the App ID you received when creating your app on R1 Connect (it’s found under Dev Tools -> Keys & Secrets)
+• 	client_key – You will need to enter the App Key you received when creating your app on R1 Connect (it ‘s found under Dev Tools -> Keys & Secrets)
+• 	disable_sdk_location - when set to “true” it disables the use of sdk tracking location. It is useful if you want to use your own tracking location. You can pass a location object like so:
+R1Emitter.getInstance().trackLocation(location);
+• 	enable_ gps – when set to “true” it enables the use of device GPS to get location (only if GPS is enabled in device settings), when “false” only the network is used
+• 	location_update_time – this is the timeout between location updates
+• 	location_update_distance – you can set the change in distance for location updates
+• 	location_in_background – you can set whether or not the locatio
+n is allowed to be sent while the app is in the background
+
+## d. Update your manifest
+Finally, in your manifest, add proper permissions:
+
+<uses-permission android:name="android.permission.INTERNET" /> <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+And make sure that your Application class is properly declared:
+
+<application
+android:name="com.example.yourpackagename.TestApplication" android:allowBackup="true"
+…
+<service android:name="com.radiumone.emitter.location.LocationService"/>
+</application>
+
+
+
+
+
+
+
 
 ***sender_id***
 
@@ -163,10 +247,6 @@ Records a user registration within the app
 UserItem userItem = new UserItem();
 userItem.userId = sha1("userId");
 userItem.userName = "userName";
-userItem.email = "user@email.net";
-userItem.streetAddress = "address";
-userItem.phone = "123456";
-userItem.zip = "111111";
 userItem.city = "City";
 userItem.state = "State"
 R1Emitter.getInstance().emitRegistration(userItem, parameters);
@@ -177,14 +257,7 @@ R1Emitter.getInstance().emitRegistration(userItem, parameters);
 Allows access to Facebook services
 
 ```objc
-R1Emitter.getInstance().emitFBConnect( sha1( "userId" ), "userName", permissions, parameters);
-```
-
-where permissions is a List of R1SocialPermissions:
-
-```objc
-ArrayList<R1SocialPermission> socialPermissions = new ArrayList<R1SocialPermission>();
-socialPermissions.add( new R1SocialPermission("permission", true));
+R1Emitter.getInstance().emitFBConnect(permissions, parameters);
 ```
 
 **Twitter connect**
@@ -196,6 +269,13 @@ HashMap<String, Object> parameters = new HashMap<String, Object>();
 parameters.put("custom_key","value");
 R1Emitter.getInstance().emitTConnect( sha1( "userId" ),
 “username”, permissions, parameters);
+```
+
+where permissions is a List of R1SocialPermissions:
+
+```objc
+ArrayList<R1SocialPermission> socialPermissions = new ArrayList<R1SocialPermission>();
+socialPermissions.add( new R1SocialPermission("permission", true));
 ```
 
 **User Info**
@@ -450,6 +530,13 @@ This will enable you to create much more insightful reports.
 ###i. Initialization
 
 To make sure push notifications work correctly, please follow these steps:
+
+Configure the r1connect.properties file in your project:
+
+• sender_id – You will need to enter the project number you received when creating the Google API project.
+
+• enable_push – This defaults to “true” and it will enable push notifications or disable push notifications after you start your application. 
+
 
 Create a class that inherits from the class Application (or you can use an existing one in the project)
 
