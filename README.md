@@ -118,13 +118,19 @@ location_in_background=false
 
 As you can see in the example above, it will contain the following:
 
-• 	app_id – You will need to enter the App ID you received when creating your app on R1 Connect (it’s found under Dev Tools -> Keys & Secrets)
+• app_id – You will need to enter the App ID you received when creating your app on R1 Connect (it’s found under Dev Tools -> Keys & Secrets)
+
 • 	client_key – You will need to enter the App Key you received when creating your app on R1 Connect (it ‘s found under Dev Tools -> Keys & Secrets)
+
 • 	disable_sdk_location - when set to “true” it disables the use of sdk tracking location. It is useful if you want to use your own tracking location. You can pass a location object like so:
 R1Emitter.getInstance().trackLocation(location);
+
 • 	enable_ gps – when set to “true” it enables the use of device GPS to get location (only if GPS is enabled in device settings), when “false” only the network is used
+
 • 	location_update_time – this is the timeout between location updates
+
 • 	location_update_distance – you can set the change in distance for location updates
+
 • 	location_in_background – you can set whether or not the locatio
 n is allowed to be sent while the app is in the background
 
