@@ -42,10 +42,10 @@ The library supports the following architectures:
 
 ## a. Import the library to your project
 
-- Please start by downloading the demo project:
+Please start by downloading the demo project:
 git clone https://github.com/radiumone/r1-connect-demo-Android
 
-- Then copy SdkLib/LibR1Connect.jar into your project. All mobile and tablet devices running Android 2.2. and above are supported.
+Then copy SdkLib/LibR1Connect.jar into your project. All mobile and tablet devices running Android 2.2. and above are supported.
 
 You will need to have created the app you will be using in R1 Connect.
 
@@ -157,6 +157,72 @@ android:allowBackup="true"
 …
 <service android:name="com.radiumone.emitter.location.LocationService"/>
 </application>
+```
+
+## e. Parameters
+The following is a list of configuration parameters for the R1 Connect SDK, most of these contain values that are sent to the tracking server to help identify your app on our platform and to provide analytics on sessions and location.
+
+**appName**
+
+The application name associated with emitter. By default, this property is populated with the package name of the application. If you wish to override this property, you must do so before making any tracking calls.
+
+```java
+R1Emitter.getInstance().setApplicationName("customApplicationName");
+```
+
+**appId**
+
+The application identifier associated with this emitter. By default, this property is null. If you wish to set this property, you must do so before making any tracking calls. Note that this is not your app's bundle id (e.g. com.example.appname).
+
+```java
+R1Emitter.getInstance().setApplicationUserId("12345");
+```
+
+**appVersion**
+
+The application version associated with this emitter. By default, this property is populated with the android:versionName= string from the application AndroidManifest.xml. If you wish to override this property, you must do so before making any tracking calls.
+
+```java
+R1Emitter.getInstance().setAppVersion("1.0");
+```
+
+**appScreen**
+
+The current application screen set for this emitter.
+
+```java
+R1Emitter.getInstance().emitAppScreen("appScreen", "contentDescription", "documentLocationUrl", "documentHostName", "documentPath", parameters);
+// where parameters is a HashMap. Example:
+private HashMap<String, Object> parameters = new HashMap<String, Object>();
+parameters.put("key","value");
+```
+
+**sessionStart**
+
+// TODO Are we making sessionStart not user-configurable?  If so, we should remove this module.
+
+If true, indicates the start of a new session. Note that when a emitter is first instantiated, this is initialized to true. To prevent this default behavior, set sessionTimeout to negative value. By itself, setting this does not send any data. If this is true, when the next emitter call is made, a parameter will be added to the resulting emitter information indicating that it is the start of a session, and this flag will be cleared.
+
+```java
+R1Emitter.getInstance().setSessionStarted(true);
+// Your code here
+R1Emitter.getInstance().setSessionStarted(false);
+```
+
+**sessionTimeout**
+
+Indicates how long, in seconds, the application must transition to the inactive or background state before the tracker automatically indicates the start of a new session. When this happens and the app becomes active again it will set sessionStart to true. For example, if this is set to 30 seconds, and the user receives a phone call that lasts for 45 seconds while using the app, upon returning to the app, the sessionStart parameter will be set to true. If the phone call instead lasted 10 seconds, sessionStart will not be modified. By default, this is 30 seconds.
+
+```java
+R1Emitter.getInstance().setSessionTimeout(30);
+```
+
+**applicationUserID**
+
+Optional current user identifier.
+
+```java
+R1Emitter.getInstance().setApplicationUserId("12345");
 ```
 
 
@@ -395,71 +461,6 @@ parameters.put("key","value");
 R1Emitter.getInstance().emitEvent("Your custom event name", parameters);
 ```
 
-### iv. Parameters
-The following is a list of configuration parameters for the R1 Connect SDK, most of these contain values that are sent to the tracking server to help identify your app on our platform and to provide analytics on sessions and location.
-
-**appName**
-
-The application name associated with emitter. By default, this property is populated with the package name of the application. If you wish to override this property, you must do so before making any tracking calls.
-
-```java
-R1Emitter.getInstance().setApplicationName("customApplicationName");
-```
-
-**appId**
-
-The application identifier associated with this emitter. By default, this property is null. If you wish to set this property, you must do so before making any tracking calls. Note that this is not your app's bundle id (e.g. com.example.appname).
-
-```java
-R1Emitter.getInstance().setApplicationUserId("12345");
-```
-
-**appVersion**
-
-The application version associated with this emitter. By default, this property is populated with the android:versionName= string from the application AndroidManifest.xml. If you wish to override this property, you must do so before making any tracking calls.
-
-```java
-R1Emitter.getInstance().setAppVersion("1.0");
-```
-
-**appScreen**
-
-The current application screen set for this emitter.
-
-```java
-R1Emitter.getInstance().emitAppScreen("appScreen", "contentDescription", "documentLocationUrl", "documentHostName", "documentPath", parameters);
-// where parameters is a HashMap. Example:
-private HashMap<String, Object> parameters = new HashMap<String, Object>();
-parameters.put("key","value");
-```
-
-**sessionStart**
-
-// TODO Are we making sessionStart not user-configurable?  If so, we should remove this module.
-
-If true, indicates the start of a new session. Note that when a emitter is first instantiated, this is initialized to true. To prevent this default behavior, set sessionTimeout to negative value. By itself, setting this does not send any data. If this is true, when the next emitter call is made, a parameter will be added to the resulting emitter information indicating that it is the start of a session, and this flag will be cleared.
-
-```java
-R1Emitter.getInstance().setSessionStarted(true);
-// Your code here
-R1Emitter.getInstance().setSessionStarted(false);
-```
-
-**sessionTimeout**
-
-Indicates how long, in seconds, the application must transition to the inactive or background state before the tracker automatically indicates the start of a new session. When this happens and the app becomes active again it will set sessionStart to true. For example, if this is set to 30 seconds, and the user receives a phone call that lasts for 45 seconds while using the app, upon returning to the app, the sessionStart parameter will be set to true. If the phone call instead lasted 10 seconds, sessionStart will not be modified. By default, this is 30 seconds.
-
-```java
-R1Emitter.getInstance().setSessionTimeout(30);
-```
-
-**applicationUserID**
-
-Optional current user identifier.
-
-```java
-R1Emitter.getInstance().setApplicationUserId("12345");
-```
 
 
 
