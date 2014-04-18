@@ -1,5 +1,4 @@
 
-
 #Table of Content
 - [1. System Requirements](#user-content-1-system-requirements)
 - [2. SDK Initialization](#user-content-2-sdk-initialization)
@@ -27,7 +26,7 @@
 #1. System Requirements
 The R1 Connect SDK supports all mobile and tablet devices running Android 2.2 and above. The downloadable directory (see below "[a. Import Files](#a-import-files)") contains the library and headers of the R1 Connect SDK for Android. 
 
-// Update the download link above.
+// TODO Update the download link above.
 
 The library supports the following architectures:
 
@@ -36,6 +35,8 @@ The library supports the following architectures:
 *	arm64
 *	i386
 *	x86_64
+
+// TODO Verify the supporting architectures.
 
 
 #2. SDK Initialization
@@ -57,26 +58,28 @@ The following steps will explain how to integrate with R1 Connect to enable even
 
 After copying the lib files, import the emitter in all your application activities:
 
-```objc
+```java
 import com.radiumone.emitter.R1Emitter;
 ```
 
 And override onStart and onStop methods:
 
-```objc
+```java
 @Override
 protected void onStart() {
-// TODO Auto-generated method stub super.onStart(); R1Emitter.getInstance().onStart(this);
+// TODO Auto-generated method stub super.onStart();
+R1Emitter.getInstance().onStart(this);
 }
 ￼
 @Override
 protected void onStop() {
-// TODO Auto-generated method stub super.onStop(); R1Emitter.getInstance().onStop(this);
+// TODO Auto-generated method stub super.onStop();
+R1Emitter.getInstance().onStop(this);
 }
 ```
 Then create a class that extends the Application class (or use an existing one), and initialize the SDK in the onCreate method:
 
-```objc
+```java
 package com.example.yourpackagename; 
 import com.radiumone.emitter.R1Emitter; 
 import android.app.Application;
@@ -101,9 +104,9 @@ app_id=<YOUR APPLICATION_ID>
 client_key=<YOUR CLIENT KEY>
 
 # default value for push when application starts. Default true
-enable_push=false
+enable_push=true
 
-#allow location tracking by gps. Default false
+#allow location tracking by gps.
 enable_gps=true
 
 #location update timeout. Default 600 sec
@@ -137,15 +140,20 @@ n is allowed to be sent while the app is in the background
 ## d. Update your manifest
 Finally, in your manifest, add proper permissions:
 
-```objc
-<uses-permission android:name="android.permission.INTERNET" /> <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+```java
+<uses-permission android:name="android.permission.INTERNET" /> 
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> 
+<uses-permission android:name="android.permission.READ_PHONE_STATE" /> 
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> 
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 ```
 
 And make sure that your Application class is properly declared:
 
-```objc
+```java
 <application
-android:name="com.example.yourpackagename.TestApplication" android:allowBackup="true"
+android:name="com.example.yourpackagename.TestApplication" 
+android:allowBackup="true"
 …
 <service android:name="com.radiumone.emitter.location.LocationService"/>
 </application>
@@ -173,11 +181,11 @@ The R1 Connect SDK will automatically capture some generic events, but in order 
 
 **Suspend** - emitted when the app is put into the background state
 
-// Is Suspend event available on Android?
+// TODO Is Suspend event available on Android?
 
 **Resume** - emitted when the app returns from the background state
 
-// Is Resume event available on Android?
+// TODO Is Resume event available on Android?
 
 **Application Opened** - This event is very useful for push notifications and can measure when your app is opened after a message is sent.
 
@@ -196,7 +204,7 @@ Standard Events give you an easy way to cover all the main user flows (login, re
 
 Tracks a user login within the app
 
-```objc
+```java
 R1Emitter.getInstance().emitLogin( sha1("userId"), "userName", parameters);
 ```
 
@@ -204,7 +212,7 @@ R1Emitter.getInstance().emitLogin( sha1("userId"), "userName", parameters);
 
 Records a user registration within the app
 
-```objc
+```java
 UserItem userItem = new UserItem();
 userItem.userId = sha1("userId");
 userItem.userName = "userName";
@@ -217,15 +225,24 @@ R1Emitter.getInstance().emitRegistration(userItem, parameters);
 
 Allows access to Facebook services
 
-```objc
+```java
+HashMap<String, Object> parameters = new HashMap<String, Object>();
+parameters.put("custom_key","value");
 R1Emitter.getInstance().emitFBConnect(permissions, parameters);
+```
+
+where permissions is a List of R1SocialPermissions:
+
+```java
+ArrayList<R1SocialPermission> socialPermissions = new ArrayList<R1SocialPermission>();
+socialPermissions.add( new R1SocialPermission("permission", true));
 ```
 
 **Twitter connect**
 
 Allows access to Twitter services
 
-```objc
+```java
 HashMap<String, Object> parameters = new HashMap<String, Object>();
 parameters.put("custom_key","value");
 R1Emitter.getInstance().emitTConnect( sha1( "userId" ),
@@ -234,7 +251,7 @@ R1Emitter.getInstance().emitTConnect( sha1( "userId" ),
 
 where permissions is a List of R1SocialPermissions:
 
-```objc
+```java
 ArrayList<R1SocialPermission> socialPermissions = new ArrayList<R1SocialPermission>();
 socialPermissions.add( new R1SocialPermission("permission", true));
 ```
@@ -243,7 +260,7 @@ socialPermissions.add( new R1SocialPermission("permission", true));
 
 This event enables you to send user profiles to the backend.
 
-```objc
+```java
 R1EmitterUserInfo *userInfo = [R1EmitterUserInfo userInfoWithUserID:@"userId"
                            userName:@"userName"
                               email:@"user@email.com"
@@ -259,23 +276,23 @@ R1EmitterUserInfo *userInfo = [R1EmitterUserInfo userInfoWithUserID:@"userId"
                                otherInfo:@{"custom_key":"value"}];
 ```
 
-// Update **User Info** sample code above
+// TODO Update **User Info** sample code above
 
 **Upgrade**
 
 Tracks an application version upgrade
 
-```objc
+```java
 [[R1Emitter sharedInstance] emitUpgradeWithOtherInfo:@{"custom_key":"value"}];
 ```
 
-// Update **Upgrade** sample code above
+// TODO Update **Upgrade** sample code above
 
 **Trial Upgrade**
 
 Tracks an application upgrade from a trial version to a full version
 
-```objc
+```java
 R1Emitter.getInstance().emitTrialUpgrade(parameters);
 ```
 
@@ -283,13 +300,13 @@ R1Emitter.getInstance().emitTrialUpgrade(parameters);
 
 Basically, a page view, it provides info about that screen
 
-```objc
+```java
 R1Emitter.getInstance().emitAppScreen("title","description","http://    www.example.com/path”,”example.com”,”path”,parameters);
 ```
 
 **Transaction**
 
-```objc
+```java
 EmitItem purchaseItem = new EmitItem();
 purchaseItem.storeId = "storeId";
 purchaseItem.storeName = "name";
@@ -305,7 +322,7 @@ R1Emitter.getInstance().emitTransaction(emitItem, parameters);
 
 **TransactionItem**
 
-```objc
+```java
 R1EmitterLineItem lineItem = new R1EmitterLineItem();
 lineItem.productId = "productId";
 lineItem.productName = "productName";
@@ -320,19 +337,19 @@ R1Emitter.getInstance().emitTransactionItem("transactionItemId", lineItem,  para
 
 **Create Cart**
 
-```objc
+```java
 R1Emitter.getInstance().emitCartCreate("cartId", parameters);
 ```
 
 **Delete Cart**
 
-```objc
+```java
 R1Emitter.getInstance().emitCartDelete("cartId", parameters);
 ```
 
 **Add To Cart**
 
-```objc
+```java
 R1EmitterLineItem lineItem = new R1EmitterLineItem();
 lineItem.productId = "productId";
 lineItem.productName = "productName";
@@ -347,7 +364,7 @@ R1Emitter.getInstance().emitAddToCart("cartId", lineItem, parameters);
 
 **Delete From Cart**
 
-```objc
+```java
 R1EmitterLineItem lineItem = new R1EmitterLineItem();
 lineItem.productId = "productId";
 lineItem.productName = "productName";
@@ -369,7 +386,7 @@ With custom events you have the ability to create and track specific events that
 
 To include tracking of custom events for the mobile app, the following callbacks need to be included in the application code:
 
-```objc
+```java
 // Emits a custom event without parameters
 R1Emitter.getInstance().emitEvent("Your custom event name");
 // Emits a custom event with parameters
@@ -385,7 +402,7 @@ The following is a list of configuration parameters for the R1 Connect SDK, most
 
 The application name associated with emitter. By default, this property is populated with the package name of the application. If you wish to override this property, you must do so before making any tracking calls.
 
-```objc
+```java
 R1Emitter.getInstance().setApplicationName("customApplicationName");
 ```
 
@@ -393,7 +410,7 @@ R1Emitter.getInstance().setApplicationName("customApplicationName");
 
 The application identifier associated with this emitter. By default, this property is null. If you wish to set this property, you must do so before making any tracking calls. Note that this is not your app's bundle id (e.g. com.example.appname).
 
-```objc
+```java
 R1Emitter.getInstance().setApplicationUserId("12345");
 ```
 
@@ -401,7 +418,7 @@ R1Emitter.getInstance().setApplicationUserId("12345");
 
 The application version associated with this emitter. By default, this property is populated with the android:versionName= string from the application AndroidManifest.xml. If you wish to override this property, you must do so before making any tracking calls.
 
-```objc
+```java
 R1Emitter.getInstance().setAppVersion("1.0");
 ```
 
@@ -409,7 +426,7 @@ R1Emitter.getInstance().setAppVersion("1.0");
 
 The current application screen set for this emitter.
 
-```objc
+```java
 R1Emitter.getInstance().emitAppScreen("appScreen", "contentDescription", "documentLocationUrl", "documentHostName", "documentPath", parameters);
 // where parameters is a HashMap. Example:
 private HashMap<String, Object> parameters = new HashMap<String, Object>();
@@ -418,11 +435,11 @@ parameters.put("key","value");
 
 **sessionStart**
 
-// Are we making sessionStart not user-configurable?  If so, we should remove this module.
+// TODO Are we making sessionStart not user-configurable?  If so, we should remove this module.
 
 If true, indicates the start of a new session. Note that when a emitter is first instantiated, this is initialized to true. To prevent this default behavior, set sessionTimeout to negative value. By itself, setting this does not send any data. If this is true, when the next emitter call is made, a parameter will be added to the resulting emitter information indicating that it is the start of a session, and this flag will be cleared.
 
-```objc
+```java
 R1Emitter.getInstance().setSessionStarted(true);
 // Your code here
 R1Emitter.getInstance().setSessionStarted(false);
@@ -432,7 +449,7 @@ R1Emitter.getInstance().setSessionStarted(false);
 
 Indicates how long, in seconds, the application must transition to the inactive or background state before the tracker automatically indicates the start of a new session. When this happens and the app becomes active again it will set sessionStart to true. For example, if this is set to 30 seconds, and the user receives a phone call that lasts for 45 seconds while using the app, upon returning to the app, the sessionStart parameter will be set to true. If the phone call instead lasted 10 seconds, sessionStart will not be modified. By default, this is 30 seconds.
 
-```objc
+```java
 R1Emitter.getInstance().setSessionTimeout(30);
 ```
 
@@ -440,7 +457,7 @@ R1Emitter.getInstance().setSessionTimeout(30);
 
 Optional current user identifier.
 
-```objc
+```java
 R1Emitter.getInstance().setApplicationUserId("12345");
 ```
 
@@ -460,12 +477,12 @@ As you may have thousands of user profiles in your database, it is preferable to
 
 Another common mistake is to add parameters to the event that have too many possible values. To follow up on the previous example, one may decide to add the number of profile followers as an event parameter:
 
-```objc
+```java
 [[R1Emitter sharedInstance] emitEvent:@"ProfileViewing"
 			withParameters:@{"profileFollowers":profileFollowers}];
 ```
 
-// Update the sample code above
+// TODO Update the sample code above
 			  			   
 Again, the problem here is that each profile may have any number of followers. This will result in having your data much too fragmented to extract any valuable information.
 
@@ -477,12 +494,12 @@ Instead, a good strategy would be to define relevant buckets to replace high var
 
 Then a proper event would be 
 
-```objc
+```java
 [[R1Emitter sharedInstance] emitEvent:@"ProfileViewing"
 			withParameters:@{"profileFollowersBucket":@"VERY_INFLUENTIAL"}];
 ```
 
-// Update the sample code above
+// TODO Update the sample code above
 			  			   
 This will enable you to create much more insightful reports.
 
@@ -503,11 +520,11 @@ Create a class that inherits from the class Application (or you can use an exist
 
 To enable an action such as opening the app when a notification is clicked, create a class that inherits from BroadcastReceiver and add the necessary logic to it. If you are okay with the default, which closes the notification upon pressing it, then no further coding is required.
 
-// Insert sample code from the screenshot: https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image3.png
+// TODO Insert sample code from the screenshot: https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image3.png
 
 The class referred to in the first item is used in the following way:
 
-```objc
+```java
 R1Emitter.getInstance().setNotificationIconResourceId(this, R.drawable.ic_launcher);
 //The above line is necessary for creating an icon in the notification bar when the device receives the notification
 R1Emitter.getInstance().setIntentReceiver(this, TestPushReceiver.class);
@@ -516,30 +533,30 @@ R1Emitter.getInstance().setIntentReceiver(this, TestPushReceiver.class);
 R1Emitter.getInstance().connect(this); //To make sure the library works correctly it is necessary this line in onCreate() method
 ```
 
-// Insert sample code from the screenshot: 
+// TODO Insert sample code from the screenshot: 
 https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image4.png
 
 If you want to create your own notifications you have to create a class that implements R1NotificationBuilder interface and write your notification builder like in the example below:
 
-// Insert sample code from the screenshot: 
+// TODO Insert sample code from the screenshot: 
 https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image7.png
 
 After that add this line just before R1Emitter.getInstance().connect(this) in your application class:
-```objc
+```java
 R1Emitter.getInstance().setNotificationBuilder( new CustomNotificationBuilder());
 ```
 
 To make sure the library works correctly it is also necessary to include the following in onStart and onStop methods in all your application Activities:
 
-// Insert sample code from the screenshot: 
+// TODO Insert sample code from the screenshot: 
 https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image5.png
 
-// Insert sample code from the screenshot: 
+// TODO Insert sample code from the screenshot: 
 https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image6.png
 
 In the manifest you need to create the following:
 
-```objc
+```java
 <!-- android:name of application tag must be full application name that was created in first step.-->
 <application
     android:name="com.example.r1connecttestapplication.TestApplication"
@@ -601,15 +618,15 @@ This doc assumes you have already set up Google Play Services in your applicatio
 In order to use RadiumOne Connect with your application you will need an API key from Google. We will summarize those steps here, but for more info on this process please visit “GCM Getting Started” here.
 1.	Create a Google API project in Google APIs Console (take note of your project number which is the value after #project: it will be used later as your GCM sender ID)
 
-// Insert a screenshot image
+// TODO Insert a screenshot image
 
 2.	Enable the GCM Service
 
-// Insert a screenshot image
+// TODO Insert a screenshot image
 
 3.	Create a new Server key in the Google APIs Console page under API Access
 
-// Insert two screenshot images
+// TODO Insert two screenshot images
 
 4.	Copy the key, it is used for GCM Connection Servers and for RadiumOne Connect setup
 
@@ -619,11 +636,11 @@ In order to use RadiumOne Connect with your application you will need an API key
 
 2.	Next, in the side menu go to Dev Tools > Push Services > Google Cloud Messaging.
 
-// Insert a screenshot image
+// TODO Insert a screenshot image
 
 3.	Add your API Key to the API Key field and click Save.
 
-// Insert a screenshot image
+// TODO Insert a screenshot image
 
 If it saved correctly you will see a green badge with a white checkmark in it. Now your app is setup with GCM.
 
@@ -640,47 +657,47 @@ The maximum length of a Tag is 128 characters.
 
 ***Add a new Tag***
 
-```objc
+```java
 R1Push.getInstance(context).addTag("tag");
 ```
 
 ***Add multiple Tags***
 	
-```objc
+```java
 [[R1Push sharedInstance].tags addTags:@[ @"NEW TAG 1", @"NEW TAG 2" ]];
 ```
 
-// Replace the code above for Add multiple tags
+// TODO Replace the code above for Add multiple tags
 
 ***Remove existing Tag***
 
-```objc
+```java
 R1Push.getInstance(context).removeTag("tag");
 ```
 
 ***Remove multiple Tags***
 
-```objc
+```java
 [[R1Push sharedInstance].tags removeTags:@[ @"EXIST TAG 1", @"EXIST TAG 2" ]];
 ```
 
-// Replace the code above for Remove multiple tags
+// TODO Replace the code above for Remove multiple tags
 
 ***Replace all existing Tags***
 
-```objc
+```java
 [R1Push sharedInstance].tags.tags = @[ @"NEW TAG 1", @"NEW TAG 2" ];
 ```
 or
-```objc
+```java
 [[R1Push sharedInstance].tags setTags:@[ @"NEW TAG 1", @"NEW TAG 2" ]];
 ```
 
-// Replace the code above for Replace all existing tags
+// TODO Replace the code above for Replace all existing tags
 
 ***Get all Tags***
 	
-```objc
+```java
 String[] allTags = R1Push.getInstance(context).getTags(context);
 ```
 
