@@ -1,4 +1,3 @@
-
 #Table of Content
 - [1. System Requirements](#user-content-1-system-requirements)
 - [2. SDK Initialization](#user-content-2-sdk-initialization)
@@ -20,7 +19,7 @@
 		- [i. Track RadiumOne Campaigns](#user-content-i-track-radiumone-campaigns)
 		- [ii. Track 3rd party Campaigns](#user-content-ii-track-3rd-party-campaigns)
 		
-// Update TOC and links above AFTER review completion
+// TODO Update TOC and links above AFTER review completion
 
 
 #1. System Requirements
@@ -67,16 +66,17 @@ And override onStart and onStop methods:
 ```java
 @Override
 protected void onStart() {
-// TODO Auto-generated method stub super.onStart();
+// Auto-generated method stub super.onStart();
 R1Emitter.getInstance().onStart(this);
 }
 ￼
 @Override
 protected void onStop() {
-// TODO Auto-generated method stub super.onStop();
+// Auto-generated method stub super.onStop();
 R1Emitter.getInstance().onStop(this);
 }
 ```
+
 Then create a class that extends the Application class (or use an existing one), and initialize the SDK in the onCreate method:
 
 ```java
@@ -99,7 +99,7 @@ Next, to configure how the library will be used in your project you will need to
 
 <img src="https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image2.png” width="440" />
 
-```objc
+```java
 app_id=<YOUR APPLICATION_ID> 
 client_key=<YOUR CLIENT KEY>
 
