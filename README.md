@@ -35,7 +35,7 @@ The library supports the following architectures:
 *	i386
 *	x86_64
 
-// TODO Verify the supporting architectures.
+// TODO Yuriy - Verify the supporting architectures.
 
 
 #2. SDK Initialization
@@ -199,7 +199,7 @@ parameters.put("key","value");
 
 **sessionStart**
 
-// TODO Are we making sessionStart not user-configurable?  If so, we should remove this module.
+// TODO Yuriy - Are we making sessionStart not user-configurable?  If so, we should remove this module.
 
 If true, indicates the start of a new session. Note that when a emitter is first instantiated, this is initialized to true. To prevent this default behavior, set sessionTimeout to negative value. By itself, setting this does not send any data. If this is true, when the next emitter call is made, a parameter will be added to the resulting emitter information indicating that it is the start of a session, and this flag will be cleared.
 
@@ -247,11 +247,11 @@ The R1 Connect SDK will automatically capture some generic events, but in order 
 
 **Suspend** - emitted when the app is put into the background state
 
-// TODO Is Suspend event available on Android?
+// TODO Yuriy - Is Suspend event available on Android?
 
 **Resume** - emitted when the app returns from the background state
 
-// TODO Is Resume event available on Android?
+// TODO Yuriy - Is Resume event available on Android?
 
 **Application Opened** - This event is very useful for push notifications and can measure when your app is opened after a message is sent.
 
@@ -342,7 +342,7 @@ R1EmitterUserInfo *userInfo = [R1EmitterUserInfo userInfoWithUserID:@"userId"
                                otherInfo:@{"custom_key":"value"}];
 ```
 
-// TODO Update **User Info** sample code above
+// TODO Yuriy - Update **User Info** sample code above
 
 **Upgrade**
 
@@ -352,7 +352,7 @@ Tracks an application version upgrade
 [[R1Emitter sharedInstance] emitUpgradeWithOtherInfo:@{"custom_key":"value"}];
 ```
 
-// TODO Update **Upgrade** sample code above
+// TODO Yuriy - Update **Upgrade** sample code above
 
 **Trial Upgrade**
 
@@ -521,7 +521,7 @@ Create a class that inherits from the class Application (or you can use an exist
 
 To enable an action such as opening the app when a notification is clicked, create a class that inherits from BroadcastReceiver and add the necessary logic to it. If you are okay with the default, which closes the notification upon pressing it, then no further coding is required.
 
-// TODO Insert sample code from the screenshot: https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image3.png
+// TODO Yuriy - Insert sample code from the screenshot: https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image3.png
 
 The class referred to in the first item is used in the following way:
 
@@ -534,12 +534,12 @@ R1Emitter.getInstance().setIntentReceiver(this, TestPushReceiver.class);
 R1Emitter.getInstance().connect(this); //To make sure the library works correctly it is necessary this line in onCreate() method
 ```
 
-// TODO Insert sample code from the screenshot: 
+// TODO Yuriy - Insert sample code from the screenshot: 
 https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image4.png
 
 If you want to create your own notifications you have to create a class that implements R1NotificationBuilder interface and write your notification builder like in the example below:
 
-// TODO Insert sample code from the screenshot: 
+// TODO Yuriy - Insert sample code from the screenshot: 
 https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image7.png
 
 After that add this line just before R1Emitter.getInstance().connect(this) in your application class:
@@ -549,10 +549,10 @@ R1Emitter.getInstance().setNotificationBuilder( new CustomNotificationBuilder())
 
 To make sure the library works correctly it is also necessary to include the following in onStart and onStop methods in all your application Activities:
 
-// TODO Insert sample code from the screenshot: 
+// TODO Yuriy - Insert sample code from the screenshot: 
 https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image5.png
 
-// TODO Insert sample code from the screenshot: 
+// TODO Yuriy - Insert sample code from the screenshot: 
 https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image6.png
 
 In the manifest you need to create the following:
@@ -668,7 +668,7 @@ R1Push.getInstance(context).addTag("tag");
 [[R1Push sharedInstance].tags addTags:@[ @"NEW TAG 1", @"NEW TAG 2" ]];
 ```
 
-// TODO Replace the code above for Add multiple tags
+// TODO Yuriy - Replace the code above for Add multiple tags
 
 ***Remove existing Tag***
 
@@ -682,7 +682,7 @@ R1Push.getInstance(context).removeTag("tag");
 [[R1Push sharedInstance].tags removeTags:@[ @"EXIST TAG 1", @"EXIST TAG 2" ]];
 ```
 
-// TODO Replace the code above for Remove multiple tags
+// TODO Yuriy - Replace the code above for Remove multiple tags
 
 ***Replace all existing Tags***
 
@@ -694,7 +694,7 @@ or
 [[R1Push sharedInstance].tags setTags:@[ @"NEW TAG 1", @"NEW TAG 2" ]];
 ```
 
-// TODO Replace the code above for Replace all existing tags
+// TODO Yuriy - Replace the code above for Replace all existing tags
 
 ***Get all Tags***
 	
