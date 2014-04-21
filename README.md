@@ -616,7 +616,7 @@ This doc assumes you have already set up Google Play Services in your applicatio
 
 ####Configuring your App for GCM
 ######Obtain an API key from Google
-In order to use RadiumOne Connect with your application you will need an API key from Google. We will summarize those steps here, but for more info on this process please visit “GCM Getting Started” at http://developer.android.com/google/gcm/gs.html
+In order to use RadiumOne Connect with your application you will need an API key from Google. We will summarize those steps here, but for more info on this process please visit “GCM Getting Started” [here](http://developer.android.com/google/gcm/gs.html).
 
 1.	Create a Google API project in Google APIs Console (take note of your project number which is the value after #project: it will be used later as your GCM sender ID)
 
@@ -707,7 +707,7 @@ String[] allTags = R1Push.getInstance(context).getTags(context);
 
 ##c. Attribution Tracking Activation
 ###i. Track RadiumOne Campaigns
-Please contact your Account Manager to setup R1 ad campaign as well as tracking campaigns.  If you don't have one, please contact us  [here](http://radiumone.com/contact-mobile-team.html) and one of our Account Managers will assist you.
+Please contact your Account Manager to setup R1 ad campaign as well as tracking campaigns.  If you don't have one, please contact us [here](http://radiumone.com/contact-mobile-team.html) and one of our Account Managers will assist you.
 
 Once your Account Manager has set up tracking, you will start receiving attribution tracking report automatically!
 
