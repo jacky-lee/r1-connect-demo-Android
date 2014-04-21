@@ -1,10 +1,11 @@
 #Table of Content
 - [1. System Requirements](#user-content-1-system-requirements)
 - [2. SDK Initialization](#user-content-2-sdk-initialization)
-	- [a. Import Files](#user-content-a-import-files)
-	- [b. Link the Static Library](#user-content-b-link-the-static-library)
-	- [c. Initialize the SDK](#user-content-c-initialize-the-sdk)
-	- [d. Advanced Settings](#user-content-d-advanced-settings)
+	- [a. Import the library to your project](#user-content-a-import-the-library-to-your-project)
+	- [b. Initialize the SDK in all Activities and Application Classes](#user-content-b-Initialize-the-SDK-in-all-Activities-and-Application-Classes)
+	- [c. Configure the SDK](#user-content-c-Configure-the-SDK)
+	- [d. Update your manifest](#user-content-d-Update-your-manifest)
+	- [e. Parameters](#user-content-e-Parameters)
 - [3. Feature Activation](#user-content-3-feature-activation)
 	- [a. Analytics Activation](#user-content-a-analytics-activation)
 		- [i. Automatic Events](#user-content-i-automatic-events)
@@ -53,7 +54,7 @@ You will need to have created the app you will be using in R1 Connect.
 ## b. Initialize the SDK in all Activities and Application Classes
 The following steps will explain how to integrate with R1 Connect to enable event tracking.
 
-<img src="https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image1.png” width="440" />
+<img src="https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image1.png"></img>
 
 After copying the lib files, import the emitter in all your application activities:
 
@@ -96,8 +97,7 @@ R1Emitter.getInstance().connect(this);
 ## c. Configure the SDK
 
 Next, to configure how the library will be used in your project you will need to create a file called r1connect.properties in the folder called “assets”.
-
-<img src="https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image2.png” width="440" />
+<img src="https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image2.png"/></img>
 
 ```java
 app_id=<YOUR APPLICATION_ID> 
@@ -283,7 +283,7 @@ UserItem userItem = new UserItem();
 userItem.userId = sha1("userId");
 userItem.userName = "userName";
 userItem.city = "City";
-userItem.state = "State"
+userItem.state = "State";
 R1Emitter.getInstance().emitRegistration(userItem, parameters);
 ```
 
@@ -311,8 +311,7 @@ Allows access to Twitter services
 ```java
 HashMap<String, Object> parameters = new HashMap<String, Object>();
 parameters.put("custom_key","value");
-R1Emitter.getInstance().emitTConnect( sha1( "userId" ),
-“username”, permissions, parameters);
+R1Emitter.getInstance().emitTConnect( sha1( "userId" ),“username”, permissions, parameters);
 ```
 
 where permissions is a List of R1SocialPermissions:
@@ -376,8 +375,8 @@ R1Emitter.getInstance().emitAppScreen("title","description","http://    www.exam
 EmitItem purchaseItem = new EmitItem();
 purchaseItem.storeId = "storeId";
 purchaseItem.storeName = "name";
-purchaseItem.transactionId = "AE3237DAA"
-purchaseItem.cartId = "ABBCCD"
+purchaseItem.transactionId = "AE3237DAA";
+purchaseItem.cartId = "ABBCCD";
 purchaseItem.orderId = "ABCDEF";
 purchaseItem.totalSale = 3.2f;
 purchaseItem.currency = "EUR";
@@ -616,7 +615,8 @@ This doc assumes you have already set up Google Play Services in your applicatio
 
 ####Configuring your App for GCM
 ######Obtain an API key from Google
-In order to use RadiumOne Connect with your application you will need an API key from Google. We will summarize those steps here, but for more info on this process please visit “GCM Getting Started” here.
+In order to use RadiumOne Connect with your application you will need an API key from Google. We will summarize those steps here, but for more info on this process please visit “GCM Getting Started” at http://developer.android.com/google/gcm/gs.html
+
 1.	Create a Google API project in Google APIs Console (take note of your project number which is the value after #project: it will be used later as your GCM sender ID)
 
 // TODO Insert a screenshot image
