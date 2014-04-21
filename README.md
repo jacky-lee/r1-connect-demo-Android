@@ -2,7 +2,7 @@
 - [1. System Requirements](#user-content-1-system-requirements)
 - [2. SDK Initialization](#user-content-2-sdk-initialization)
 	- [a. Import the library to your project](#user-content-a-import-the-library-to-your-project)
-	- [b. Initialize the SDK in all Activities and Application Classes](#user-content-b-Initialize-the-SDK-in-all-Activities-and-Application-Classes)
+	- [b. Initialize the SDK in all Activities and Application Classes](#user-content-b-initialize-the-sDK-in-all-activities-and-application-classes)
 	- [c. Configure the SDK](#user-content-c-Configure-the-SDK)
 	- [d. Update your manifest](#user-content-d-Update-your-manifest)
 	- [e. Parameters](#user-content-e-Parameters)
@@ -52,6 +52,7 @@ You will need to have created the app you will be using in R1 Connect.
 
 
 ## b. Initialize the SDK in all Activities and Application Classes
+
 The following steps will explain how to integrate with R1 Connect to enable event tracking.
 
 <img src="https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image1.png"></img>
