@@ -2,9 +2,9 @@
 - [1. System Requirements](#user-content-1-system-requirements)
 - [2. SDK Initialization](#user-content-2-sdk-initialization)
 	- [a. Import the library to your project](#user-content-a-import-the-library-to-your-project)
-	- [b. Initialize the SDK in all Activities and Application Classes](#user-content-b-initialize-the-sDK-in-all-activities-and-application-classes)
-	- [c. Configure the SDK](#user-content-c-Configure-the-SDK)
-	- [d. Update your manifest](#user-content-d-Update-your-manifest)
+	- [b. Initialize the SDK in all Activities and Application Classes](#user-content-b-initialize-the-sdk-in-all-activities-and-application-classes)
+	- [c. Configure the SDK](#user-content-c-configure-the-sdk)
+	- [d. Update your manifest](#user-content-d-update-your-manifest)
 	- [e. Advanced Settings](#user-content-e-advanced-settings)
 - [3. Feature Activation](#user-content-3-feature-activation)
 	- [a. Analytics Activation](#user-content-a-analytics-activation)
@@ -14,19 +14,17 @@
 		- [iv. Best Practices](#user-content-iv-best-practices)
 	- [b. Push Notification Activation](#user-content-b-push-notification-activation)
 		- [i. Initialization](#user-content-i-initialization)
-		- [ii. Setup Apple Push Notification Services](#user-content-ii-setup-google-cloud-messaging)
+		- [ii. Setup Google Cloud Messaging](#user-content-ii-setup-google-cloud-messaging)
 		- [iii. Segment your Audience](#user-content-iii-segment-your-audience)
 	- [c. Attribution Tracking Activation](#user-content-c-attribution-tracking-activation)
 		- [i. Track RadiumOne Campaigns](#user-content-i-track-radiumone-campaigns)
 		- [ii. Track 3rd party Campaigns](#user-content-ii-track-3rd-party-campaigns)
 		
-// TODO Update TOC and links above AFTER review completion
-
 
 #1. System Requirements
 The R1 Connect SDK supports all mobile and tablet devices running Android 2.3 and above. The downloadable directory (see below "[a. Import Files](#a-import-files)") contains the library of the R1 Connect SDK for Android.
 
-// TODO Update the download link above.
+// TODO - ADAM, Update the download link above.
 
 
 
