@@ -653,31 +653,31 @@ This doc assumes you have already set up Google Play Services in your applicatio
 ######Obtain an API key from Google
 In order to use RadiumOne Connect with your application you will need an API key from Google. We will summarize those steps here, but for more info on this process please visit “GCM Getting Started” [here](http://developer.android.com/google/gcm/gs.html).
 
-1. Create a Google API project in Google APIs Console (take note of your project number which is the value after #project: it will be used later as your GCM sender ID)
+1\. Create a Google API project in Google APIs Console (take note of your project number which is the value after #project: it will be used later as your GCM sender ID)
 
 <img src="https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image101.jpg"></img>
 
-2. Enable the GCM Service
+2\. Enable the GCM Service
 
 <img src="https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image102.jpg"></img>
 
-3. Create a new Server key in the Google APIs Console page under API Access
+3\. Create a new Server key in the Google APIs Console page under API Access
 
 <img src="https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image103.jpg"></img>
 
 <img src="https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image104.jpg"></img>
 
-4. Copy the key, it is used for GCM Connection Servers and for RadiumOne Connect setup
+4\. Copy the key, it is used for GCM Connection Servers and for RadiumOne Connect setup
 
 ######Setting up the API Key on R1 Connect
 
-1. Please make sure you are signed into your account on RadiumOne Connect and go to the application you want to add this API key to.
+1\. Please make sure you are signed into your account on RadiumOne Connect and go to the application you want to add this API key to.
 
-2. Next, in the side menu go to Dev Tools > Push Services > Google Cloud Messaging.
+2\. Next, in the side menu go to Dev Tools > Push Services > Google Cloud Messaging.
 
 <img src="https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image105.jpg"></img>
 
-3. Add your API Key to the API Key field and click Save.
+3\. Add your API Key to the API Key field and click Save.
 
 <img src="https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image106.jpg"></img>
 
