@@ -655,9 +655,7 @@ In order to use RadiumOne Connect with your application you will need an API key
 
 1.	Create a Google API project in Google APIs Console (take note of your project number which is the value after #project: it will be used later as your GCM sender ID)
 
-<img src="https://github.com/radiumone/r1-connect-demo-Android/blob/master/readme-images/image101.jpg"></img>
-
-// TODO Insert a screenshot image
+<img src="https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image101.jpg"></img>
 
 2.	Enable the GCM Service
 
