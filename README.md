@@ -599,7 +599,7 @@ In the manifest you need to create the following:
     android:icon="@drawable/ic_launcher"
     android:label="@string/app_name"
     android:theme="@style/AppTheme" >
-    <!——the next lines are your project activities-->
+    <!--the next lines are your project activities-->
     //Then there are necessary fields for the library to work correctly (cont…):
     <receiver android:name="com.radiumone.emitter.gcm.R1GCMPushReceiver" android:exported="true"
               android:permission="com.google.android.c2dm.permission.SEND" >
