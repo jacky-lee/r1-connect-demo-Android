@@ -5,7 +5,7 @@
 	- [b. Initialize the SDK in all Activities and Application Classes](#user-content-b-initialize-the-sDK-in-all-activities-and-application-classes)
 	- [c. Configure the SDK](#user-content-c-Configure-the-SDK)
 	- [d. Update your manifest](#user-content-d-Update-your-manifest)
-	- [e. Parameters](#user-content-e-Parameters)
+	- [e. Advanced Settings](#user-content-e-advanced-settings)
 - [3. Feature Activation](#user-content-3-feature-activation)
 	- [a. Analytics Activation](#user-content-a-analytics-activation)
 		- [i. Automatic Events](#user-content-i-automatic-events)
@@ -59,14 +59,14 @@ And override onStart and onStop methods:
 ```java
 @Override
 protected void onStart() {
-// Auto-generated method stub super.onStart();
-R1Emitter.getInstance().onStart(this);
+	// Auto-generated method stub super.onStart();
+	R1Emitter.getInstance().onStart(this);
 }
 ￼
 @Override
 protected void onStop() {
-// Auto-generated method stub super.onStop();
-R1Emitter.getInstance().onStop(this);
+	// Auto-generated method stub super.onStop();
+	R1Emitter.getInstance().onStop(this);
 }
 ```
 
@@ -79,10 +79,10 @@ import android.app.Application;
 
 public class TestApplication extends Application{
 @Override
-public void onCreate() {
-super.onCreate();
-R1Emitter.getInstance().connect(this); 
-}
+	public void onCreate() {
+		super.onCreate();
+		R1Emitter.getInstance().connect(this); 
+	}
 }
 ```
 
@@ -91,7 +91,7 @@ R1Emitter.getInstance().connect(this);
 Next, to configure how the library will be used in your project you will need to create a file called r1connect.properties in the folder called “assets”.
 <img src="https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image2.png"/></img>
 
-```java
+```ruby
 app_id=<YOUR APPLICATION_ID> 
 client_key=<YOUR CLIENT KEY>
 
@@ -115,7 +115,7 @@ As you can see in the example above, it will contain the following:
 
 • app_id – You will need to enter the App ID you received when creating your app on R1 Connect (it’s found under Dev Tools -> Keys & Secrets)
 
-• 	client_key – You will need to enter the App Key you received when creating your app on R1 Connect (it ‘s found under Dev Tools -> Keys & Secrets)
+• 	client_key – You will need to enter the App Key you received when creating your app on R1 Connect (it is found under Dev Tools -> Keys & Secrets)
 
 • 	disable_sdk_location - when set to “true” it disables the use of sdk tracking location. It is useful if you want to use your own tracking location. You can pass a location object like so:
 R1Emitter.getInstance().trackLocation(location);
@@ -151,7 +151,7 @@ And make sure that your Application class is properly declared:
 </application>
 ```
 
-## e. Parameters
+## e. Advanced Settings
 The following is a list of configuration parameters for the R1 Connect SDK, most of these contain values that are sent to the tracking server to help identify your app on our platform and to provide analytics on sessions and location.
 
 **appName**
