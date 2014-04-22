@@ -133,10 +133,10 @@ n is allowed to be sent while the app is in the background
 Finally, in your manifest, add proper permissions:
 
 ```java
-<uses-permission android:name="android.permission.INTERNET" /> 
-<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> 
-<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> 
-<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+	<uses-permission android:name="android.permission.INTERNET" /> 
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> 
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> 
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 ```
 
 // TODO - ADAM, would you double check "android.permission.ACCESS_COARSE_LOCATION"?
@@ -145,10 +145,9 @@ And make sure that your Application class is properly declared:
 
 ```java
 <application
-android:name="com.example.yourpackagename.TestApplication" 
-android:allowBackup="true"
-…
-<service android:name="com.radiumone.emitter.location.LocationService"/>
+	android:name="com.example.yourpackagename.TestApplication" android:allowBackup="true"
+	…
+	<service android:name="com.radiumone.emitter.location.LocationService"/>
 </application>
 ```
 
@@ -252,7 +251,7 @@ R1Emitter.getInstance().emitLogin("userId", "userName", parameters);
 Records a user registration within the app
 
 ```java
-R1Emitter.getInstance().emitRegistration("userId", "userName", "country", "city", "state" ,parameters);
+R1Emitter.getInstance().emitRegistration("userId", "userName", "country", "city", "state", parameters);
 ```
 
 **Facebook connect**
@@ -304,7 +303,7 @@ userItem.streetAddress = "address";
 userItem.phone = "123456";
 userItem.zip = "111111";
 userItem.city = "City";
-userItem.state = "State"
+userItem.state = "State";
 R1Emitter.getInstance().emitUserInfo(userItem, parameters);
 ```
 
@@ -315,6 +314,8 @@ Tracks an application version upgrade
 ```java
 R1Emitter.getInstance().emitUpgrade(Map<String, Object> otherInfo);
 ```
+
+// TODO - ADAM, please verify the accuracy of sample source code for Upgrade.
 
 **Trial Upgrade**
 
@@ -329,7 +330,7 @@ R1Emitter.getInstance().emitTrialUpgrade(parameters);
 Basically, a page view, it provides info about that screen
 
 ```java
-R1Emitter.getInstance().emitAppScreen("title","description","http://www.example.com/path”,”example.com”,”path”,parameters);
+R1Emitter.getInstance().emitAppScreen("title","description","http://www.example.com/path","example.com","path",parameters);
 ```
 
 **Transaction**
@@ -358,7 +359,7 @@ lineItem.quantity = 5;
 lineItem.unitOfMeasure = "parts";
 lineItem.msrPrice = 1.3f;
 lineItem.pricePaid = 3.4f;
-lineItem.currency = "EUR;
+lineItem.currency = "EUR";
 lineItem.itemCategory = "items";
 R1Emitter.getInstance().emitTransactionItem("transactionItemId", lineItem,  parameters);
 ```
@@ -385,7 +386,7 @@ lineItem.quantity = 5;
 lineItem.unitOfMeasure = "parts";
 lineItem.msrPrice = 1.3f;
 lineItem.pricePaid = 3.4f;
-lineItem.currency = "EUR;
+lineItem.currency = "EUR";
 lineItem.itemCategory = "items";
 R1Emitter.getInstance().emitAddToCart("cartId", lineItem, parameters);
 ```
@@ -400,7 +401,7 @@ lineItem.quantity = 5;
 lineItem.unitOfMeasure = "parts";
 lineItem.msrPrice = 1.3f;
 lineItem.pricePaid = 3.4f;
-lineItem.currency = "EUR;
+lineItem.currency = "EUR";
 lineItem.itemCategory = "items";
 R1Emitter.getInstance().emitRemoveFromCart("cartId", lineItem, parameters);
 ```
@@ -637,7 +638,7 @@ In the manifest you need to create the following:
 <uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
 <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 <uses-permission android:name="android.permission.VIBRATE"/>
-<!—(your_application_package).permission.C2D_MESSAGE -->
+<!--(your_application_package).permission.C2D_MESSAGE -->
 <permission android:name="com.radiumone.sdk.permission.C2D_MESSAGE" android:protectionLevel="signature"/>
 <uses-permission android:name="com.radiumone.sdk.permission.C2D_MESSAGE"></uses-permission>
 ```
