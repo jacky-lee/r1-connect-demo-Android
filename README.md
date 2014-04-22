@@ -24,19 +24,10 @@
 
 
 #1. System Requirements
-The R1 Connect SDK supports all mobile and tablet devices running Android 2.2 and above. The downloadable directory (see below "[a. Import Files](#a-import-files)") contains the library and headers of the R1 Connect SDK for Android. 
+The R1 Connect SDK supports all mobile and tablet devices running Android 2.3 and above. The downloadable directory (see below "[a. Import Files](#a-import-files)") contains the library of the R1 Connect SDK for Android.
 
 // TODO Update the download link above.
 
-The library supports the following architectures:
-
-*     	arm7
-*	arm7s
-*	arm64
-*	i386
-*	x86_64
-
-// TODO Yuriy - Verify the supporting architectures.
 
 
 #2. SDK Initialization
@@ -144,10 +135,11 @@ Finally, in your manifest, add proper permissions:
 ```java
 <uses-permission android:name="android.permission.INTERNET" /> 
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> 
-<uses-permission android:name="android.permission.READ_PHONE_STATE" /> 
 <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> 
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 ```
+
+// TODO - ADAM, would you double check "android.permission.ACCESS_COARSE_LOCATION"?
 
 And make sure that your Application class is properly declared:
 
@@ -198,18 +190,6 @@ private HashMap<String, Object> parameters = new HashMap<String, Object>();
 parameters.put("key","value");
 ```
 
-**sessionStart**
-
-// TODO Yuriy - Are we making sessionStart not user-configurable?  If so, we should remove this module.
-
-If true, indicates the start of a new session. Note that when a emitter is first instantiated, this is initialized to true. To prevent this default behavior, set sessionTimeout to negative value. By itself, setting this does not send any data. If this is true, when the next emitter call is made, a parameter will be added to the resulting emitter information indicating that it is the start of a session, and this flag will be cleared.
-
-```java
-R1Emitter.getInstance().setSessionStarted(true);
-// Your code here
-R1Emitter.getInstance().setSessionStarted(false);
-```
-
 **sessionTimeout**
 
 Indicates how long, in seconds, the application must transition to the inactive or background state before the tracker automatically indicates the start of a new session. When this happens and the app becomes active again it will set sessionStart to true. For example, if this is set to 30 seconds, and the user receives a phone call that lasts for 45 seconds while using the app, upon returning to the app, the sessionStart parameter will be set to true. If the phone call instead lasted 10 seconds, sessionStart will not be modified. By default, this is 30 seconds.
@@ -246,14 +226,6 @@ The R1 Connect SDK will automatically capture some generic events, but in order 
 
 **First Launch After Update** - emitted when the app starts for the first time after a version upgrade
 
-**Suspend** - emitted when the app is put into the background state
-
-// TODO Yuriy - Is Suspend event available on Android?
-
-**Resume** - emitted when the app returns from the background state
-
-// TODO Yuriy - Is Resume event available on Android?
-
 **Application Opened** - This event is very useful for push notifications and can measure when your app is opened after a message is sent.
 
 **Session Start** - As the name implies the Session Start event is used to start a new session.
@@ -265,14 +237,14 @@ The R1 Connect SDK will automatically capture some generic events, but in order 
 
 Standard Events give you an easy way to cover all the main user flows (login, register, share, purchase...) in a standardized format for optimized reporting on the portal. They provide some great foundation for your analytics strategy. Once you set them up in your code, they unlock great insights, especially on user lifetime value.
 
-*Note: The last argument in all of the following emitter callbacks, otherInfo, is a dictionary of “key”,”value” pairs or nil, which enables you to customize these events as much as you want.*
+*Note: The last argument in all of the following emitter callbacks, otherInfo, is a HashMap of “key”,”value” pairs or null, which enables you to customize these events as much as you want.*
 
 **Login**
 
 Tracks a user login within the app
 
 ```java
-R1Emitter.getInstance().emitLogin( sha1("userId"), "userName", parameters);
+R1Emitter.getInstance().emitLogin("userId", "userName", parameters);
 ```
 
 **Registration**
@@ -280,12 +252,7 @@ R1Emitter.getInstance().emitLogin( sha1("userId"), "userName", parameters);
 Records a user registration within the app
 
 ```java
-UserItem userItem = new UserItem();
-userItem.userId = sha1("userId");
-userItem.userName = "userName";
-userItem.city = "City";
-userItem.state = "State";
-R1Emitter.getInstance().emitRegistration(userItem, parameters);
+R1Emitter.getInstance().emitRegistration("userId", "userName", "country", "city", "state" ,parameters);
 ```
 
 **Facebook connect**
@@ -312,7 +279,7 @@ Allows access to Twitter services
 ```java
 HashMap<String, Object> parameters = new HashMap<String, Object>();
 parameters.put("custom_key","value");
-R1Emitter.getInstance().emitTConnect( sha1( "userId" ),“username”, permissions, parameters);
+R1Emitter.getInstance().emitTConnect("userId", "username", permissions, parameters);
 ```
 
 where permissions is a List of R1SocialPermissions:
@@ -327,32 +294,27 @@ socialPermissions.add( new R1SocialPermission("permission", true));
 This event enables you to send user profiles to the backend.
 
 ```java
-R1EmitterUserInfo *userInfo = [R1EmitterUserInfo userInfoWithUserID:@"userId"
-                           userName:@"userName"
-                              email:@"user@email.com"
-                          firstName:@"first name"
-                           lastName:@"last name"
-                      streetAddress:@"streetAddress"
-                              phone:@"phone"
-                               city:@"city"
-                              state:@"state"
-                                zip:@"zip"];
-
-[[R1Emitter sharedInstance] emitUserInfo:@"userId"
-                               otherInfo:@{"custom_key":"value"}];
+UserItem userItem = new UserItem();
+userItem.userId = "userId";
+userItem.userName = "userName";
+userItem.firstName = "firstName";
+userItem.lastName = "lastName";
+userItem.email = "user@email.net";
+userItem.streetAddress = "address";
+userItem.phone = "123456";
+userItem.zip = "111111";
+userItem.city = "City";
+userItem.state = "State"
+R1Emitter.getInstance().emitUserInfo(userItem, parameters);
 ```
-
-// TODO Yuriy - Update **User Info** sample code above
 
 **Upgrade**
 
 Tracks an application version upgrade
 
 ```java
-[[R1Emitter sharedInstance] emitUpgradeWithOtherInfo:@{"custom_key":"value"}];
+R1Emitter.getInstance().emitUpgrade(Map<String, Object> otherInfo);
 ```
-
-// TODO Yuriy - Update **Upgrade** sample code above
 
 **Trial Upgrade**
 
@@ -367,7 +329,7 @@ R1Emitter.getInstance().emitTrialUpgrade(parameters);
 Basically, a page view, it provides info about that screen
 
 ```java
-R1Emitter.getInstance().emitAppScreen("title","description","http://    www.example.com/path”,”example.com”,”path”,parameters);
+R1Emitter.getInstance().emitAppScreen("title","description","http://www.example.com/path”,”example.com”,”path”,parameters);
 ```
 
 **Transaction**
@@ -479,11 +441,10 @@ As you may have thousands of user profiles in your database, it is preferable to
 Another common mistake is to add parameters to the event that have too many possible values. To follow up on the previous example, one may decide to add the number of profile followers as an event parameter:
 
 ```java
-[[R1Emitter sharedInstance] emitEvent:@"ProfileViewing"
-			withParameters:@{"profileFollowers":profileFollowers}];
+HashMap<String, Object> parameters = new HashMap<String, Object>();
+parameters.put("profileFollowers",profileFollowers);
+R1Emitter.getInstance().emitEvent("ProfileViewing", parameters);
 ```
-
-// TODO Update the sample code above
 			  			   
 Again, the problem here is that each profile may have any number of followers. This will result in having your data much too fragmented to extract any valuable information.
 
@@ -496,11 +457,10 @@ Instead, a good strategy would be to define relevant buckets to replace high var
 Then a proper event would be 
 
 ```java
-[[R1Emitter sharedInstance] emitEvent:@"ProfileViewing"
-			withParameters:@{"profileFollowersBucket":@"VERY_INFLUENTIAL"}];
+HashMap<String, Object> parameters = new HashMap<String, Object>();
+parameters.put("profileFollowersBucket","VERY_INFLUENTIAL");
+R1Emitter.getInstance().emitEvent("ProfileViewing", parameters);
 ```
-
-// TODO Update the sample code above
 			  			   
 This will enable you to create much more insightful reports.
 
@@ -521,7 +481,27 @@ Create a class that inherits from the class Application (or you can use an exist
 
 To enable an action such as opening the app when a notification is clicked, create a class that inherits from BroadcastReceiver and add the necessary logic to it. If you are okay with the default, which closes the notification upon pressing it, then no further coding is required.
 
-// TODO Yuriy - Insert sample code from the screenshot: https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image3.png
+```java
+public class TestPushReceiver extends BroadcastReceiver {
+
+    public void onReceive(Context context, Intent intent) {
+        try{
+            Context applicationContex = context.getApplicationContext();
+            if ( intent != null && intent.getAction() != null){
+                if (intent.getAction().equals(R1Push.OPENED_NOTIFICATION)){
+                    Intent openIntent = new Intent(context, ShowNotificationActivity.class);
+                    openIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        if ( intent.getExtras() != null ){
+                            openIntent.putExtra("all", intent);
+                        }
+                        applicationContex.startActivity(openIntent);
+                    }
+                }
+            } catch (Exception ex){
+        }
+    }
+}
+```
 
 The class referred to in the first item is used in the following way:
 
@@ -534,26 +514,81 @@ R1Emitter.getInstance().setIntentReceiver(this, TestPushReceiver.class);
 R1Emitter.getInstance().connect(this); //To make sure the library works correctly it is necessary this line in onCreate() method
 ```
 
-// TODO Yuriy - Insert sample code from the screenshot: 
-https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image4.png
+```java
+public class R1sdkApplication extends Application{
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        // drawable in notification bar
+        R1Emitter.getInstance().setNotificationIconResourceId(this, R.drawable.notification_icon);
+        // custom BroadcastReceiver
+        R1Emitter.getInstance().setIntentReceiver(this, TestPushReceiver.class);
+        R1Emitter.getInstance().connect(this);
+    }
+}
+```
 
 If you want to create your own notifications you have to create a class that implements R1NotificationBuilder interface and write your notification builder like in the example below:
 
-// TODO Yuriy - Insert sample code from the screenshot: 
-https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image7.png
+```java
+public class CustomNotificationBuilder implements R1NotificationBuilder {
+
+    private int lastId;
+
+    @Override
+    public Notification createNotification(Context context, Intent intent) {
+        if ( context == null || intent == null){
+            return null;
+        }
+        String text = intent.getStringExtra(R1PushNotificationManager.NOTIFICATION_KEY);
+        String title = intent.getStringExtra(R1PushNotificationManager.NOTIFICATION_TITLE);
+        if ( text != null ){
+            NotificationCompat.Builder nb = new NotificationCompat.Builder(context)
+                .setAutoCancel(true)
+                .setTicker(text)
+                .setContentText(text)
+                .setWhen(System.currentTimeMillis());
+            if (!TextUtils.isEmpty(title)){
+                nb.setContentTitle(title);
+            } else {
+                nb.setContentTitle("My Application Name");
+            }
+            nb.setDefaults(Notification.DEFAULT_ALL);
+            nb.setSmallIcon(R.drawable.ic_launcher);
+            Notification notification = nb.build();
+            lastId++;
+            return notification;
+        }
+        return null;
+    }
+
+    @Override
+    public int getLastNotificationId() {
+        return lastId;
+    }
+}
+```
 
 After that add this line just before R1Emitter.getInstance().connect(this) in your application class:
 ```java
-R1Emitter.getInstance().setNotificationBuilder( new CustomNotificationBuilder());
+R1Emitter.getInstance().setNotificationBuilder(new CustomNotificationBuilder());
 ```
 
 To make sure the library works correctly it is also necessary to include the following in onStart and onStop methods in all your application Activities:
 
-// TODO Yuriy - Insert sample code from the screenshot: 
-https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image5.png
-
-// TODO Yuriy - Insert sample code from the screenshot: 
-https://raw.github.com/radiumone/r1-connect-demo-Android/master/readme-images/image6.png
+```java
+@Override
+protected void onStart() {
+    super.onStart();
+    R1Emitter.getInstance().onStart(this);
+}
+￼
+@Override
+protected void onStop() {
+    super.onStop();
+    R1Emitter.getInstance().onStop(this);
+}
+```
 
 In the manifest you need to create the following:
 
@@ -595,7 +630,6 @@ In the manifest you need to create the following:
 <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 <uses-permission android:name="android.permission.INTERNET" />
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-<uses-permission android:name="android.permission.READ_PHONE_STATE" />
 //Permission to get location when using the network
 <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 //Permission to get location when using GPS
@@ -678,10 +712,10 @@ R1Push.getInstance(context).addTag("tag");
 ***Add multiple Tags***
 	
 ```java
-[[R1Push sharedInstance].tags addTags:@[ @"NEW TAG 1", @"NEW TAG 2" ]];
+for ( String tag: tags) {
+    R1Push.getInstance(this).addTag(tag);
+}
 ```
-
-// TODO Yuriy - Replace the code above for Add multiple tags
 
 ***Remove existing Tag***
 
@@ -692,22 +726,10 @@ R1Push.getInstance(context).removeTag("tag");
 ***Remove multiple Tags***
 
 ```java
-[[R1Push sharedInstance].tags removeTags:@[ @"EXIST TAG 1", @"EXIST TAG 2" ]];
+for ( String tag: tags) {
+    R1Push.getInstance(this).removeTag(tag);
+}
 ```
-
-// TODO Yuriy - Replace the code above for Remove multiple tags
-
-***Replace all existing Tags***
-
-```java
-[R1Push sharedInstance].tags.tags = @[ @"NEW TAG 1", @"NEW TAG 2" ];
-```
-or
-```java
-[[R1Push sharedInstance].tags setTags:@[ @"NEW TAG 1", @"NEW TAG 2" ]];
-```
-
-// TODO Yuriy - Replace the code above for Replace all existing tags
 
 ***Get all Tags***
 	
