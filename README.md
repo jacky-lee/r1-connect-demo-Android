@@ -57,7 +57,7 @@ protected void onStart() {
 	// Auto-generated method stub super.onStart();
 	R1Emitter.getInstance().onStart(this);
 }
-￼
+
 @Override
 protected void onStop() {
 	// Auto-generated method stub super.onStop();
