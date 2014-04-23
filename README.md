@@ -22,10 +22,7 @@
 		
 
 #1. System Requirements
-The R1 Connect SDK supports all mobile and tablet devices running Android 2.3 and above. The downloadable directory (see below "[a. Import Files](#a-import-files)") contains the library of the R1 Connect SDK for Android.
-
-// TODO - ADAM, Update the download link above.
-
+The R1 Connect SDK supports all mobile and tablet devices running Android 2.3 and above. Google Play Service must be 4.0 or above.  The downloadable directory (see below "[a. Import Files](#a-import-files)") contains library of the R1 Connect SDK for Android.
 
 
 #2. SDK Initialization
@@ -137,8 +134,6 @@ Finally, in your manifest, add proper permissions:
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 ```
 
-// TODO - ADAM, would you double check "android.permission.ACCESS_COARSE_LOCATION"?
-
 And make sure that your Application class is properly declared:
 
 ```java
@@ -242,6 +237,9 @@ Tracks a user login within the app
 
 ```java
 R1Emitter.getInstance().emitLogin("userId", "userName", parameters);
+// where parameters is a HashMap. Example:
+private HashMap<String, Object> parameters = new HashMap<String, Object>();
+parameters.put("key","value");
 ```
 
 **Registration**
@@ -250,6 +248,9 @@ Records a user registration within the app
 
 ```java
 R1Emitter.getInstance().emitRegistration("userId", "userName", "country", "city", "state", parameters);
+// where parameters is a HashMap. Example:
+private HashMap<String, Object> parameters = new HashMap<String, Object>();
+parameters.put("key","value");
 ```
 
 **Facebook connect**
@@ -302,6 +303,10 @@ userItem.phone = "123456";
 userItem.zip = "111111";
 userItem.city = "City";
 userItem.state = "State";
+
+HashMap<String, Object> parameters = new HashMap<String, Object>();
+parameters.put("custom_key","value");
+
 R1Emitter.getInstance().emitUserInfo(userItem, parameters);
 ```
 
@@ -310,7 +315,10 @@ R1Emitter.getInstance().emitUserInfo(userItem, parameters);
 Tracks an application version upgrade
 
 ```java
-R1Emitter.getInstance().emitUpgrade(Map<String, Object> otherInfo);
+HashMap<String, Object> parameters = new HashMap<String, Object>();
+parameters.put("custom_key","value");
+
+R1Emitter.getInstance().emitUpgrade(parameters);
 ```
 
 // TODO - ADAM, please verify the accuracy of sample source code for Upgrade.
@@ -320,6 +328,9 @@ R1Emitter.getInstance().emitUpgrade(Map<String, Object> otherInfo);
 Tracks an application upgrade from a trial version to a full version
 
 ```java
+HashMap<String, Object> parameters = new HashMap<String, Object>();
+parameters.put("custom_key","value");
+
 R1Emitter.getInstance().emitTrialUpgrade(parameters);
 ```
 
@@ -328,6 +339,9 @@ R1Emitter.getInstance().emitTrialUpgrade(parameters);
 Basically, a page view, it provides info about that screen
 
 ```java
+HashMap<String, Object> parameters = new HashMap<String, Object>();
+parameters.put("custom_key","value");
+
 R1Emitter.getInstance().emitAppScreen("title","description","http://www.example.com/path","example.com","path",parameters);
 ```
 
@@ -344,6 +358,10 @@ purchaseItem.totalSale = 3.2f;
 purchaseItem.currency = "EUR";
 purchaseItem.shippingCosts = 1.8f;
 purchaseItem.transactionTax = 2.5f;
+
+HashMap<String, Object> parameters = new HashMap<String, Object>();
+parameters.put("custom_key","value");
+
 R1Emitter.getInstance().emitTransaction(emitItem, parameters);
 ```
 
@@ -359,18 +377,28 @@ lineItem.msrPrice = 1.3f;
 lineItem.pricePaid = 3.4f;
 lineItem.currency = "EUR";
 lineItem.itemCategory = "items";
+
+HashMap<String, Object> parameters = new HashMap<String, Object>();
+parameters.put("custom_key","value");
+
 R1Emitter.getInstance().emitTransactionItem("transactionItemId", lineItem,  parameters);
 ```
 
 **Create Cart**
 
 ```java
+HashMap<String, Object> parameters = new HashMap<String, Object>();
+parameters.put("custom_key","value");
+
 R1Emitter.getInstance().emitCartCreate("cartId", parameters);
 ```
 
 **Delete Cart**
 
 ```java
+HashMap<String, Object> parameters = new HashMap<String, Object>();
+parameters.put("custom_key","value");
+
 R1Emitter.getInstance().emitCartDelete("cartId", parameters);
 ```
 
@@ -386,6 +414,10 @@ lineItem.msrPrice = 1.3f;
 lineItem.pricePaid = 3.4f;
 lineItem.currency = "EUR";
 lineItem.itemCategory = "items";
+
+HashMap<String, Object> parameters = new HashMap<String, Object>();
+parameters.put("custom_key","value");
+
 R1Emitter.getInstance().emitAddToCart("cartId", lineItem, parameters);
 ```
 
@@ -401,6 +433,10 @@ lineItem.msrPrice = 1.3f;
 lineItem.pricePaid = 3.4f;
 lineItem.currency = "EUR";
 lineItem.itemCategory = "items";
+
+HashMap<String, Object> parameters = new HashMap<String, Object>();
+parameters.put("custom_key","value");
+
 R1Emitter.getInstance().emitRemoveFromCart("cartId", lineItem, parameters);
 ```
 
@@ -624,6 +660,11 @@ In the manifest you need to create the following:
             <action android:name="com.radiumone.r1push.OPENED"/>
         </intent-filter>
     </receiver>
+
+    <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
 </application>
 //Permissions that are necessary for the library to work:
 <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
