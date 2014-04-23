@@ -321,8 +321,6 @@ parameters.put("custom_key","value");
 R1Emitter.getInstance().emitUpgrade(parameters);
 ```
 
-// TODO - ADAM, please verify the accuracy of sample source code for Upgrade.
-
 **Trial Upgrade**
 
 Tracks an application upgrade from a trial version to a full version
