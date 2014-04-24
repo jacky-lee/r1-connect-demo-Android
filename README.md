@@ -54,13 +54,13 @@ And override onStart and onStop methods:
 ```java
 @Override
 protected void onStart() {
-	// Auto-generated method stub super.onStart();
+	super.onStart();
 	R1Emitter.getInstance().onStart(this);
 }
 ￼
 @Override
 protected void onStop() {
-	// Auto-generated method stub super.onStop();
+	super.onStop();
 	R1Emitter.getInstance().onStop(this);
 }
 ```
@@ -623,7 +623,7 @@ protected void onStop() {
 }
 ```
 
-In the manifest you need to create the following:
+Update the manifest as shown below:
 
 ```java
 <!-- android:name of application tag must be full application name that was created in first step.-->
