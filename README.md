@@ -172,17 +172,6 @@ The application version associated with this emitter. By default, this property 
 R1Emitter.getInstance().setAppVersion("1.0");
 ```
 
-**appScreen**
-
-The current application screen set for this emitter.
-
-```java
-R1Emitter.getInstance().emitAppScreen("appScreen", "contentDescription", "documentLocationUrl", "documentHostName", "documentPath", parameters);
-// where parameters is a HashMap. Example:
-private HashMap<String, Object> parameters = new HashMap<String, Object>();
-parameters.put("key","value");
-```
-
 **sessionTimeout**
 
 Indicates how long, in seconds, the application must transition to the inactive or background state before the tracker automatically indicates the start of a new session. When this happens and the app becomes active again it will set sessionStart to true. For example, if this is set to 30 seconds, and the user receives a phone call that lasts for 45 seconds while using the app, upon returning to the app, the sessionStart parameter will be set to true. If the phone call instead lasted 10 seconds, sessionStart will not be modified. By default, this is 30 seconds.
