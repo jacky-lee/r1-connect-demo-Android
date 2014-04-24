@@ -350,7 +350,7 @@ purchaseItem.transactionTax = 2.5f;
 HashMap<String, Object> parameters = new HashMap<String, Object>();
 parameters.put("custom_key","value");
 
-R1Emitter.getInstance().emitTransaction(emitItem, parameters);
+R1Emitter.getInstance().emitTransaction(purchaseItem, parameters);
 ```
 
 **TransactionItem**
