@@ -57,7 +57,7 @@ protected void onStart() {
 	super.onStart();
 	R1Emitter.getInstance().onStart(this);
 }
-￼
+
 @Override
 protected void onStop() {
 	super.onStop();
