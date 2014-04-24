@@ -469,15 +469,15 @@ parameters.put("profileFollowers",profileFollowers);
 R1Emitter.getInstance().emitEvent("ProfileViewing", parameters);
 ```
 			  			   
-Again, the problem here is that each profile may have any number of followers. This will result in having your data much too fragmented to extract any valuable information.
+Again, the problem here is that each profile may have any number of followers. This will result in having your data too fragmented to extract any valuable information.
 
-Instead, a good strategy would be to define relevant buckets to replace high variance parameters. For example, in this case, it might be more relevant to separate traffic on the profiles with a lot of followers from traffic on frofiles with very few followers. You could define 3 categories: 
+Instead, a good strategy would be to define relevant buckets to replace high variance parameters. For example, in this case, it might be more relevant to separate traffic on the profiles with a lot of followers from traffic on profiles with a few followers. You could define 3 categories: 
 
 - "VERY_INFLUENTIAL" for profiles > 100,000 
 - "INFLUENTIAL" for profile > 10,000 and <= 100,000
 - "NON_INFLUENTIAL" for profile <= 10,000
 
-Then a proper event would be 
+In this case, a proper event could be 
 
 ```java
 HashMap<String, Object> parameters = new HashMap<String, Object>();
@@ -485,7 +485,7 @@ parameters.put("profileFollowersBucket","VERY_INFLUENTIAL");
 R1Emitter.getInstance().emitEvent("ProfileViewing", parameters);
 ```
 			  			   
-This will enable you to create much more insightful reports.
+This will enable you to create more insightful reports.
 
 ##b. Push Notification Activation
 
