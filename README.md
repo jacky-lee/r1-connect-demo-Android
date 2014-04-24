@@ -138,7 +138,8 @@ And make sure that your Application class is properly declared:
 
 ```java
 <application
-	android:name="com.example.yourpackagename.TestApplication" android:allowBackup="true"
+	android:name="com.example.yourpackagename.TestApplication" 
+	android:allowBackup="true"
 	…
 	<service android:name="com.radiumone.emitter.location.LocationService"/>
 </application>
