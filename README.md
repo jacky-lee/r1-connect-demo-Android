@@ -260,7 +260,7 @@ Allows access to Facebook services
 ```java
 HashMap<String, Object> parameters = new HashMap<String, Object>();
 parameters.put("custom_key","value");
-R1Emitter.getInstance().emitFBConnect(permissions, parameters);
+R1Emitter.getInstance().emitFBConnect(socialPermissions, parameters);
 ```
 
 where permissions is a List of R1SocialPermissions:
@@ -277,10 +277,10 @@ Allows access to Twitter services
 ```java
 HashMap<String, Object> parameters = new HashMap<String, Object>();
 parameters.put("custom_key","value");
-R1Emitter.getInstance().emitTConnect("userId", "username", permissions, parameters);
+R1Emitter.getInstance().emitTConnect("userId", "username", socialPermissions, parameters);
 ```
 
-where permissions is a List of R1SocialPermissions:
+where socialPermissions is a list of R1SocialPermissions:
 
 ```java
 ArrayList<R1SocialPermission> socialPermissions = new ArrayList<R1SocialPermission>();
