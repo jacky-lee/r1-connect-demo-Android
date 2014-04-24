@@ -467,7 +467,7 @@ Example: "ProfileViewing"
 
 Avoid: "Profile Viewing - Lady Gaga's profile"
 
-As you may have thousands of user profiles in your database, it is preferable to keep the event name high level ("ProfileViewing") so you can run interesting anaytics on it. For example, it will be much easier to answer this question: "how many profiles does a user visit every day on average?". 
+As you may have thousands of user profiles in your database, it is preferable to keep the event name high level ("ProfileViewing") so you can run interesting anaytics on it. For example, it will be much easier to answer this question: How many profiles does a user visit every day on average? 
 
 ####Parameter Variance
 
